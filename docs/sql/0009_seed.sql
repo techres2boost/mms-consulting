@@ -40,14 +40,22 @@ insert into telecom_operators (code, name) values
   ('ORANGE','Orange Tunisie'),
   ('OOREDOO','Ooredoo Tunisie');
 
--- Barème initial. VOLONTAIREMENT CONSERVATEUR : il est plus facile d'augmenter
--- la générosité que de la réduire (cf. §16 sur l'économie unitaire).
+-- Barème initial. DÉRIVÉ DE L'ÉCONOMIE UNITAIRE, PAS DE L'INTUITION (cf. docs/16).
+-- Contrainte : cout_par_point <= 0.5 * revenu_par_point, avec
+--   revenu_par_point = (CPM_en_TND) / points_par_impression   [en millimes]
+-- À CPM = 5 TND et 1 point/impression : cout max = 2,5 millimes/point,
+-- soit ~0,83 Mo par point à 3 millimes/Mo de coût de gros.
+--
+-- ⚠ LE CPM DOIT ÊTRE VALIDÉ AUPRÈS D'ANNONCEURS RÉELS AVANT LE LANCEMENT.
+--   À CPM = 2 TND ce barème est déjà déficitaire (-19 % de marge).
+--   Le bonus d'appel est DÉSACTIVÉ par défaut (0 point) : c'est le poste
+--   le moins défendable économiquement et le moins mesurable (nul sur iOS).
 insert into point_rules (
   version, effective_from, points_per_impression, points_per_call_bonus,
   min_call_seconds_for_bonus, monthly_bonus_points, welcome_bonus_points,
   referral_bonus_points, daily_impression_cap, freq_cap_minutes,
   daily_call_bonus_cap, points_validity_months)
-values (1, now(), 2, 1, 30, 20, 20, 30, 12, 10, 10, 12);
+values (1, now(), 1, 0, 30, 10, 20, 30, 6, 10, 0, 12);
 
 -- Version de bundle initiale par zone
 insert into ad_bundle_versions (zone_id, version)
@@ -113,12 +121,19 @@ insert into system_settings (key, value, description) values
                  "precise_location":false,"radius_targeting":false}',
    'Feature flags');
 
--- Exemple de catalogue (prix à valider avec les opérateurs)
+-- Catalogue. La valeur en Mo est DÉRIVÉE de la contrainte ci-dessus, pas choisie.
+-- cost_millimes = VOTRE coût d'achat en gros (hypothèse : 3 millimes / Mo).
+-- Avec 190 points/mois gagnables : ~142 Mo/mois de récompense soutenable.
+--
+-- ⚠ Écart avec l'intuition initiale du brief (100 pts -> 500 Mo, 500 pts -> 3 Go) :
+--   ce barème-là représente ~10x la récompense soutenable au volume in-app (ALT-D).
+--   Il ne devient tenable qu'en captant TOUS les appels (ALT-A / ALT-E, ~40 pubs/jour)
+--   ET avec un CPM >= 5 TND. Voir le tableau de sensibilité dans docs/16.
 insert into data_packages (operator_id, name_fr, name_ar, data_mb, points_cost, cost_millimes, sort_order)
 select o.id, v.fr, v.ar, v.mb, v.pts, v.cost, v.ord
 from telecom_operators o, (values
-  ('500 Mo','500 ميغا',500,100,1500,1),
-  ('1,5 Go','1.5 جيغا',1536,250,3500,2),
-  ('3 Go','3 جيغا',3072,500,6500,3)
+  ('100 Mo','100 ميغا', 100, 130,  300, 1),
+  ('300 Mo','300 ميغا', 300, 380,  900, 2),
+  ('1 Go','1 جيغا',    1024,1250, 3072, 3)
 ) as v(fr, ar, mb, pts, cost, ord)
 where o.is_active;

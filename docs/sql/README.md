@@ -25,7 +25,7 @@
 |---|---|---|
 | T1 | Crédit de points, solde et séquence | ✅ |
 | T2 | **Idempotence** : même clé rejouée 3× → 1 seule ligne, solde inchangé | ✅ |
-| T3 | 60 crédits successifs, `wallet_seq` sans trou | ✅ |
+| T3 | Crédits successifs jusqu'à couvrir le plus petit palier, `wallet_seq` sans trou | ✅ |
 | T4 | **Débit supérieur au solde rejeté** (`check_violation`) | ✅ |
 | T5 | Conversion : débit atomique + demande `pending` | ✅ |
 | T6 | Échec de conversion → **reversal**, solde restauré, motif tracé | ✅ |
@@ -74,6 +74,10 @@ psql -h /tmp/pg -p 55432 -U testuser -d postgres <<'SQL'
 create schema auth;
 create table auth.users (id uuid primary key default gen_random_uuid(), email text);
 create function auth.uid() returns uuid language sql stable as $$ select null::uuid $$;
+-- les rôles Supabase sont référencés par les REVOKE de 0005 et les policies de 0008
+create role anon;
+create role authenticated;
+create role service_role;
 create schema cron;
 create function cron.schedule(text,text,text) returns bigint language sql as $$ select 1::bigint $$;
 SQL
@@ -87,5 +91,12 @@ done
 psql -h /tmp/pg -p 55432 -U testuser -d postgres -f docs/sql/tests/test_ledger.sql
 ```
 
-> Note : dans T14, `job_x() is null` renvoie `f` — c'est normal, une fonction `void`
-> ne renvoie pas `NULL`. Le test vérifie que les jobs s'exécutent **sans erreur**.
+> Notes :
+> - Dans T14, `job_x() is null` renvoie `f` — c'est normal, une fonction `void` ne renvoie
+>   pas `NULL`. Le test vérifie que les jobs s'exécutent **sans erreur**.
+> - Les tests T3, T5 et T6 sont **paramétrés sur le catalogue** (`order by points_cost
+>   limit 1`) : ils restent valides si le barème ou le catalogue de `0009_seed.sql` change.
+> - Les valeurs de `point_rules` et `data_packages` du seed sont **dérivées de la
+>   contrainte d'économie unitaire** `coût_par_point ≤ 0,5 × revenu_par_point`
+>   (voir [docs/16](../16-estimation-couts.md)), et non choisies arbitrairement. Le CPM
+>   de référence (5 TND) **doit être validé auprès d'annonceurs réels** avant le lancement.

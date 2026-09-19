@@ -19,14 +19,15 @@ select post_ledger_entry('11111111-1111-1111-1111-111111111111','C',2,'impressio
 select (select confirmed_points from points_wallets) as should_still_be_2,
        (select count(*) from points_ledger) as should_be_1_ledger_row;
 
-\echo '--- T3: 60 credits supplementaires ---'
-do $$ begin
-  for i in 2..61 loop
+\echo '--- T3: credits jusqu a couvrir le plus petit palier du catalogue ---'
+do $$ declare v_need int; begin
+  select min(points_cost) + 20 into v_need from data_packages where is_active;
+  for i in 2..(v_need/2 + 1) loop
     perform post_ledger_entry('11111111-1111-1111-1111-111111111111','C',2,'impression','earn',
       md5('imp:'||i)::uuid);
   end loop;
 end $$;
-select confirmed_points as should_be_122, last_wallet_seq from points_wallets;
+select confirmed_points as solde, last_wallet_seq as seq from points_wallets;
 
 \echo '--- T4: SOLDE INSUFFISANT doit echouer ---'
 do $$ begin
@@ -38,18 +39,19 @@ do $$ begin
     raise notice 'OK: debit excessif rejete (%)', sqlerrm;
   end;
 end $$;
-select confirmed_points as unchanged_122 from points_wallets;
+select confirmed_points as solde_inchange from points_wallets;
 
 \echo '--- T5: CONVERSION (redeem_points) ---'
+select confirmed_points as solde_avant from points_wallets \gset
 select redeem_points('11111111-1111-1111-1111-111111111111',
-  (select id from data_packages where points_cost=100 limit 1),
+  (select id from data_packages where is_active order by points_cost limit 1),
   digest('+21620000001','sha256'), null, gen_random_uuid()) as redemption_id \gset
-select confirmed_points as should_be_22 from points_wallets;
+select confirmed_points as solde_apres_debit from points_wallets;
 select status, points_spent, data_mb from reward_redemptions;
 
 \echo '--- T6: ECHEC DE CONVERSION -> reversal ---'
 select fail_redemption(:'redemption_id', 'operateur indisponible') as reversal_entry;
-select confirmed_points as back_to_122 from points_wallets;
+select confirmed_points as solde_restaure, :solde_avant as solde_attendu from points_wallets;
 select status, failure_reason from reward_redemptions;
 select origin, direction, amount, reason from points_ledger order by id desc limit 1;
 
@@ -84,7 +86,7 @@ from verify_ledger_chain('11111111-1111-1111-1111-111111111111');
 
 \echo '--- T11: UNE SEULE conversion ouverte a la fois ---'
 do $$ declare pkg uuid; begin
-  select id into pkg from data_packages where points_cost=100 limit 1;
+  select id into pkg from data_packages where is_active order by points_cost limit 1;
   perform redeem_points('11111111-1111-1111-1111-111111111111', pkg,
     digest('x','sha256'), null, gen_random_uuid());
   begin
@@ -101,7 +103,7 @@ insert into profiles(id, phone_e164, phone_hash, governorate_id)
 select '33333333-3333-3333-3333-333333333333','+21620000002',
        digest('+21620000002','sha256'), id from geographic_zones where code='TN-11';
 do $$ declare pkg uuid; begin
-  select id into pkg from data_packages where points_cost=100 limit 1;
+  select id into pkg from data_packages where is_active order by points_cost limit 1;
   begin
     perform redeem_points('33333333-3333-3333-3333-333333333333', pkg,
       digest('z','sha256'), null, gen_random_uuid());
