@@ -2,6 +2,13 @@
 
 > **Statut : BLOQUANT.** Cette section conditionne tout le reste du dossier.
 > Elle doit être lue avant les sections d'architecture.
+>
+> **Mise à jour du 20/09/2026 —** cette section analyse le cas de l'appel **sortant**
+> (brief initial). La spécification Call Com V1.0 porte sur l'appel **entrant** :
+> l'auditeur est l'appelant, qui n'a pas l'application. **Le verdict d'impossibilité est
+> identique et renforcé** (la cause racine est la même : le média pré-décrochage appartient
+> au réseau), mais **ALT-D n'est plus applicable** et une architecture supplémentaire
+> apparaît, **ALT-F** (§1.4bis). Voir [§23](23-analyse-spec-call-com.md).
 
 ---
 
@@ -355,29 +362,85 @@ portée de Capacitor seul.
 **Faisabilité MVP** — Faible pour un MVP. Candidat crédible en **Phase 2 sur Android**,
 comme montée en gamme de ALT-D.
 
+
+---
+
+### ALT-F — Renvoi d'appel + plateforme + bridge VoIP *(cas entrant uniquement)*
+
+> Cette architecture n'existe **que** dans le scénario de l'appel entrant décrit par la
+> spécification Call Com. Elle est analysée en détail en
+> [§23.4](23-analyse-spec-call-com.md#234-nouvelle-architecture-à-considérer--alt-f--renvoi-dappel--plateforme--bridge-voip).
+
+**Fonctionnement** — L'application pose un renvoi d'appel inconditionnel de la ligne de
+l'utilisateur vers une plateforme Call Com (code MMI). Un appel entrant est renvoyé vers la
+plateforme, qui décroche, diffuse la publicité à l'appelant, et fait simultanément sonner
+l'application par push VoIP. Au décrochage dans l'app, la publicité s'arrête et la
+plateforme ponte les deux jambes.
+
+**Expérience utilisateur** — La plus proche du §6 de la spécification sans accord
+opérateur : publicité pendant l'attente, arrêt net au décrochage, conversation normale.
+Mais la conversation de l'utilisateur devient de la VoIP.
+
+**Android / iOS** — Fonctionne sur les deux. **iOS est ici pleinement supporté** :
+PushKit + CallKit est le chemin canonique d'un appel VoIP entrant. Contrainte stricte
+d'Apple : le push VoIP doit **immédiatement** déclencher `reportNewIncomingCall`, sous
+peine de suspension du service.
+
+**Opérateur nécessaire** — Non pour le mécanisme, mais **oui en pratique** pour la
+tarification de la jambe de renvoi.
+
+**Coût** — Une jambe RTC entrante par appel, plus la jambe VoIP. Moins lourd qu'ALT-B
+(une seule jambe payante au lieu de deux), mais non nul.
+
+**Complexité** — Élevée : SIP, media server, push VoIP, CallKit, codes MMI.
+
+**Avantages** — Conforme au scénario cible ; l'appelant n'a besoin d'aucune application ;
+**mesure parfaite côté serveur** (CDR propres) ; anti-fraude quasi gratuit ; parité
+Android/iOS ; *reach* publicitaire élevé (appelants tous différents).
+
+**Inconvénients — cinq blocages à lever, par gravité**
+1. **Sans data, l'utilisateur ne reçoit plus ses appels.** Potentiellement fatal :
+   « j'ai installé Call Com et je rate mes appels ».
+2. **Toutes ses conversations deviennent de la VoIP** : la qualité dépend de sa
+   couverture data, et une dégradation sera attribuée à Call Com.
+3. **Qui paie la jambe de renvoi ?** Généralement l'abonné qui pose le renvoi — donc
+   l'utilisateur, pour recevoir ses propres appels. Inacceptable sans arrangement opérateur.
+4. **Aucune API Android de renvoi d'appel** : seul chemin, un code MMI via une intention
+   `tel:`, que l'opérateur doit autoriser, et que l'utilisateur peut défaire sans que
+   l'app le sache.
+5. **Licence et visa INT** : vous exploitez de fait une plateforme de traitement d'appels.
+
+**Faisabilité MVP** — **Candidat légitime pour le prototype exigé au §24 de la
+spécification**, à condition de tester les blocages 1, 2 et 3 avant tout développement de
+plateforme. À ne pas construire sans ce test.
+
 ---
 
 ## 1.5 Grille de synthèse
 
-| Critère | ALT-A Opérateur RBT | ALT-B Bridge CPaaS | ALT-C VoIP in-app | ALT-D Ad-then-dial | ALT-E Android dialer |
-|---|---|---|---|---|---|
-| Conformité à l'UX du §2 | ●●●●● | ●●●○○ | ●●●●○ | ●○○○○ | ●●○○○ |
-| Pub pendant la sonnerie | ✅ | ✅ | ✅ | ❌ | ❌ |
-| Pub répétée jusqu'au décroché | ✅ | ✅ | ✅ | ❌ | ❌ |
-| Fonctionne sur Android | ✅ | ✅ | ✅ | ✅ | ✅ |
-| Fonctionne sur iOS | ✅ | ✅ | ✅ | ✅ | ❌ |
-| Fonctionne sur feature phone | ✅ | ✅ (DTMF) | ❌ | ❌ | ❌ |
-| Fonctionne sans Internet | ✅ | ✅ (DTMF) | ❌ | ✅ | ✅ |
-| Réalisable avec Capacitor | n/a | ✅ | ❌ | ✅ | ❌ |
-| Accord opérateur requis | **Obligatoire** | Requis (terminaison) | Non (app→app) | **Non** | **Non** |
-| Exposition réglementaire INT | Encadrée par l'opérateur | **Élevée** | Moyenne | **Nulle** | Nulle |
-| Coût marginal par appel | ~0 | **Élevé (2 jambes)** | Faible→élevé | **~0** | ~0 |
-| Mesure de l'appel (fiabilité) | ●●●●● (CDR réseau) | ●●●●● (CDR propres) | ●●●●● | ●●○○○ (iOS ●○○○○) | ●●●●○ (Android) |
-| Résistance à la fraude | ●●●●● | ●●●●● | ●●●●● | ●●○○○ | ●●●○○ |
-| Complexité technique | ●●○○○ | ●●●●○ | ●●●●● | ●○○○○ | ●●●●○ |
-| Complexité organisationnelle | ●●●●● | ●●●●○ | ●●○○○ | ●○○○○ | ●●●○○ |
-| Délai avant première mise en prod | 6–18 mois | 3–6 mois | 3–5 mois | **4–8 semaines** | 3–5 mois |
-| Faisabilité MVP | ○○○○○ | ●●○○○ | ●●○○○ | ●●●●● | ●●○○○ |
+> **Lecture pour la spécification Call Com (appel entrant) :** seules **ALT-A** et
+> **ALT-F** sont applicables. ALT-D, ALT-E et ALT-C supposent que l'auditeur de la
+> publicité est l'utilisateur de l'application, ce qui n'est pas le cas ici.
+
+| Critère | ALT-A Opérateur RBT | ALT-B Bridge CPaaS | ALT-C VoIP in-app | ALT-D Ad-then-dial | ALT-E Android dialer | **ALT-F Renvoi + bridge** |
+|---|---|---|---|---|---|---|
+| Conformité à l'UX du §2 | ●●●●● | ●●●○○ | ●●●●○ | ●○○○○ | ●●○○○ | ●●●●○ |
+| Pub pendant la sonnerie | ✅ | ✅ | ✅ | ❌ | ❌ | ✅ |
+| Pub répétée jusqu'au décroché | ✅ | ✅ | ✅ | ❌ | ❌ | ✅ |
+| Fonctionne sur Android | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| Fonctionne sur iOS | ✅ | ✅ | ✅ | ✅ | ❌ | ✅ |
+| Fonctionne sur feature phone | ✅ | ✅ (DTMF) | ❌ | ❌ | ❌ | ❌ (appelé) |
+| Fonctionne sans Internet | ✅ | ✅ (DTMF) | ❌ | ✅ | ✅ | **❌ blocage B2** |
+| Réalisable avec Capacitor | n/a | ✅ | ❌ | ✅ | ❌ | ⚠️ + client VoIP |
+| Accord opérateur requis | **Obligatoire** | Requis (terminaison) | Non (app→app) | **Non** | **Non** | Non technique, **oui tarifaire** |
+| Exposition réglementaire INT | Encadrée par l'opérateur | **Élevée** | Moyenne | **Nulle** | Nulle | **Élevée** |
+| Coût marginal par appel | ~0 | **Élevé (2 jambes)** | Faible→élevé | **~0** | ~0 | Moyen (1 jambe) |
+| Mesure de l'appel (fiabilité) | ●●●●● (CDR réseau) | ●●●●● (CDR propres) | ●●●●● | ●●○○○ (iOS ●○○○○) | ●●●●○ (Android) | ●●●●● (CDR propres) |
+| Résistance à la fraude | ●●●●● | ●●●●● | ●●●●● | ●●○○○ | ●●●○○ | ●●●●● |
+| Complexité technique | ●●○○○ | ●●●●○ | ●●●●● | ●○○○○ | ●●●●○ | ●●●●○ |
+| Complexité organisationnelle | ●●●●● | ●●●●○ | ●●○○○ | ●○○○○ | ●●●○○ | ●●●○○ |
+| Délai avant première mise en prod | 6–18 mois | 3–6 mois | 3–5 mois | **4–8 semaines** | 3–5 mois | 3–5 mois |
+| Faisabilité MVP | ○○○○○ | ●●○○○ | ●●○○○ | ●●●●● | ●●○○○ | ●●●○○ |
 
 ---
 

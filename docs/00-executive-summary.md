@@ -2,8 +2,29 @@
 
 **Projet :** plateforme tunisienne de publicité audio adossée aux appels téléphoniques,
 rémunérant les utilisateurs en points convertibles en data mobile.
-**Date du dossier :** 19 septembre 2026.
-**Audience :** fondateur + future équipe de développement.
+**Date du dossier :** 19 septembre 2026. **Mise à jour :** 20 septembre 2026.
+**Audience :** Call Com (porteur du projet) + future équipe de développement.
+
+> ### ⚠️ À lire avant cette synthèse
+>
+> Ce résumé a été rédigé à partir du brief initial, qui décrivait une publicité diffusée
+> lors d'un appel **sortant**. La spécification fonctionnelle Call Com V1.0 décrit en
+> réalité le cas **entrant** : c'est **l'appelant** qui entend la publicité pendant que la
+> ligne de l'utilisateur sonne.
+>
+> **Le diagnostic de faisabilité est inchangé et même renforcé** — mais deux conclusions
+> de ce résumé ne s'appliquent plus à la spécification :
+> - **ALT-D n'est plus disponible** : l'auditeur (l'appelant) n'a pas l'application, donc
+>   aucune lecture locale n'est possible. Il n'existe **aucun mode dégradé purement
+>   applicatif**.
+> - **Le problème de mesure iOS disparaît**, la mesure devenant serveur. L'asymétrie
+>   Android/iOS s'effondre, et l'architecture offline (§10) devient largement inutile.
+>
+> Le barème de la spécification (§8.4) est par ailleurs **environ dix fois plus prudent**
+> que celui du brief initial : la marge de −767 % citée plus bas **ne s'applique pas** à
+> la spécification Call Com, qui est viable dès un CPM de 12 TND.
+>
+> 👉 **Analyse complète de l'écart : [§23](23-analyse-spec-call-com.md).**
 
 ---
 

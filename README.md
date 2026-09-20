@@ -2,7 +2,14 @@
 
 Dossier d'analyse fonctionnelle et d'architecture technique.
 
-**Date : 19 septembre 2026**
+**Date : 19 septembre 2026** · **Mise à jour : 20 septembre 2026** (analyse de la
+spécification fonctionnelle Call Com V1.0)
+
+> **⚠️ Lire [§23 — Analyse de la spécification Call Com](docs/23-analyse-spec-call-com.md)
+> en complément.** La spécification porte sur l'appel **entrant** (l'appelant entend la
+> publicité), alors que les §01–§22 analysent l'appel **sortant**. Le diagnostic de
+> faisabilité est inchangé et renforcé, mais ALT-D n'est plus applicable et une
+> architecture supplémentaire apparaît (**ALT-F**).
 
 ---
 
@@ -52,6 +59,7 @@ d'un problème technique.
 | [20 — Risk register](docs/20-risk-register.md) | 13 risques : probabilité, impact, mitigation |
 | [21 — Déploiement et monitoring](docs/21-deploiement-monitoring.md) | CI/CD, environnements, alertes, runbook |
 | [22 — Conclusion](docs/22-conclusion.md) | Réponse aux 12 questions du brief |
+| **[23 — Analyse de la spécification Call Com](docs/23-analyse-spec-call-com.md)** | **Écart spec ↔ dossier, ALT-F, accord opérateur, risque business** |
 | [99 — Sources](docs/99-sources.md) | Références + **12 points à vérifier en Phase 0** |
 
 ## Code
