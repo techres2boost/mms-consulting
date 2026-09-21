@@ -60,6 +60,7 @@ d'un problème technique.
 | [21 — Déploiement et monitoring](docs/21-deploiement-monitoring.md) | CI/CD, environnements, alertes, runbook |
 | [22 — Conclusion](docs/22-conclusion.md) | Réponse aux 12 questions du brief |
 | **[23 — Analyse de la spécification Call Com](docs/23-analyse-spec-call-com.md)** | **Écart spec ↔ dossier, ALT-F, accord opérateur, risque business** |
+| **[24 — Étude d'intégration Orange Tunisie](docs/24-etude-orange-integration.md)** | **Faisabilité télécom, 3 architectures d'intégration, POC, stratégie Orange Fab, checklist de 22 questions** |
 | [99 — Sources](docs/99-sources.md) | Références + **12 points à vérifier en Phase 0** |
 
 ## Code
@@ -94,3 +95,8 @@ hash. Détail dans [`docs/sql/README.md`](docs/sql/README.md).
 5. **Les deux risques fatals sont commerciaux, pas techniques.** Blyk et RingPlus ont
    construit ce produit et sont morts faute d'annonceurs. La Phase 0 doit consacrer autant
    d'effort à vingt rendez-vous annonceurs qu'au POC technique.
+6. **La voie opérateur a un précédent chiffré.** Turkcell « Tone&Win » (2008) est
+   exactement le modèle de Call Com, récompense utilisateur incluse : 50 marques,
+   72 campagnes, 200 000+ membres, ~20 minutes offertes par abonné et par mois. Et Orange
+   Tunisie **exploite déjà** une plateforme de tonalité d'attente. Détail et checklist de
+   négociation en [§24](docs/24-etude-orange-integration.md).
