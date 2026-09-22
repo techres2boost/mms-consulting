@@ -61,7 +61,8 @@ d'un problème technique.
 | [22 — Conclusion](docs/22-conclusion.md) | Réponse aux 12 questions du brief |
 | **[23 — Analyse de la spécification Call Com](docs/23-analyse-spec-call-com.md)** | **Écart spec ↔ dossier, ALT-F, accord opérateur, risque business** |
 | **[24 — Étude d'intégration Orange Tunisie](docs/24-etude-orange-integration.md)** | **Faisabilité télécom, 3 architectures d'intégration, POC, stratégie Orange Fab, checklist de 22 questions** |
-| [25 — Chiffrage de la mission](docs/25-chiffrage-mission.md) | Tarifs marché tunisien, chiffrage par livrable, formules commerciales, fiscalité, négociation |
+| **[25 — Chiffrage de la mission](docs/25-chiffrage-mission.md)** | **v2.0** — chiffrage phasé, tarifs marché tunisien, fiscalité, négociation |
+| **[26 — Démarche phasée avant / pendant / après Orange](docs/26-demarche-phasee.md)** | **Le document opérationnel.** Dossier de Phase 1, playbook du rendez-vous, Phase 3 conditionnelle |
 | [99 — Sources](docs/99-sources.md) | Références + **12 points à vérifier en Phase 0** |
 
 ## Code
@@ -71,7 +72,7 @@ d'un problème technique.
 | [`docs/sql/`](docs/sql/) | 10 migrations PostgreSQL | **Exécutées avec succès sur PostgreSQL 16** |
 | [`docs/sql/tests/`](docs/sql/tests/) | 14 tests fonctionnels du ledger | **14/14 passent** |
 | [`docs/presentation/`](docs/presentation/) | Deck client (15 slides) + pitch Orange 5 min (9 slides) | Validés, générateurs inclus |
-| [`docs/devis/`](docs/devis/) | Devis ajustable (TJM, jours, TVA paramétrables) | 75 formules, 27 contrôles OK |
+| [`docs/devis/`](docs/devis/) | Devis ajustable, phasé (TJM, jours, TVA paramétrables) | 83 formules, 13 contrôles OK |
 
 Les tests vérifient notamment l'idempotence, le rejet des débits excédant le solde, le
 reversal sur échec de conversion, l'immuabilité append-only du ledger, et le fait qu'une
@@ -98,7 +99,12 @@ hash. Détail dans [`docs/sql/README.md`](docs/sql/README.md).
 5. **Les deux risques fatals sont commerciaux, pas techniques.** Blyk et RingPlus ont
    construit ce produit et sont morts faute d'annonceurs. La Phase 0 doit consacrer autant
    d'effort à vingt rendez-vous annonceurs qu'au POC technique.
-6. **La voie opérateur a un précédent chiffré.** Turkcell « Tone&Win » (2008) est
+6. **L'étude est phasée, et l'avant-Orange est volontairement court.** 12,5 jours
+   (8 750 TND) pour obtenir et réussir le premier rendez-vous, contre 30,5 jours dans une
+   première version — détailler une architecture avant de connaître le réseau d'Orange
+   aurait été à refaire. Le détail est conditionné à ses réponses
+   ([§26](docs/26-demarche-phasee.md)).
+7. **La voie opérateur a un précédent chiffré.** Turkcell « Tone&Win » (2008) est
    exactement le modèle de Call Com, récompense utilisateur incluse : 50 marques,
    72 campagnes, 200 000+ membres, ~20 minutes offertes par abonné et par mois. Et Orange
    Tunisie **exploite déjà** une plateforme de tonalité d'attente. Détail et checklist de

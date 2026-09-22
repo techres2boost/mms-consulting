@@ -63,34 +63,40 @@ contenu sont en tête de fichier.
 
 ---
 
-## 2. Pitch Orange — première rencontre (5 minutes)
+## 2. Pitch Orange — première rencontre (5 minutes) · v2.0
 
 `Call_Com_Orange_Premiere_Rencontre_5min.pptx` — 9 slides (7 + 2 de réserve), minutées,
-avec notes de présentateur. Destinée à être présentée **par Call Com et son consultant
-technique, devant Orange Tunisie**.
+avec notes de présentateur. Présentée **par Call Com et son consultant technique devant
+Orange Tunisie**.
+
+> **v2.0 — changement de posture.** La v1.0 demandait un POC en première réunion. La v2.0
+> demande **une validation de faisabilité de principe et une réunion technique**. Le POC
+> vient après. Une slide a été ajoutée : « ce que nous affirmons / ce que nous supposons /
+> ce que nous ignorons » — c'est elle qui établit la crédibilité devant des ingénieurs.
 
 | # | Slide | Minutage | Message |
 |---|---|---|---|
-| 1 | Titre | — | « 5 minutes, 2 questions » |
+| 1 | Titre | — | « 5 minutes, 3 questions, 1 demande » |
 | 2 | L'inventaire qui dort | 0:00–0:45 | 5 à 10 s d'espace audio par appel, zéro revenu |
-| 3 | **Le précédent chiffré** | 0:45–1:45 | **Le slide décisif** — Turkcell Tone&Win : 50 marques, 72 campagnes, 200 000+ membres, ~20 min/abonné/mois. Et « Yesss! » dans le groupe Orange |
-| 4 | Ce qu'Orange a déjà | 1:45–2:45 | La tonalité d'attente `*144#` existe ; une seule capacité reste à confirmer |
-| 5 | Ce que Call Com apporte | 2:45–3:45 | La force de vente annonceurs locale, qu'Orange ne construira pas |
-| 6 | La demande | 3:45–4:30 | POC sur 10-20 lignes + 4 engagements pris spontanément |
-| 7 | Les deux questions | 4:30–5:00 | VoLTE/IMS ? Durée réellement écoutée dans les CDR ? |
-| 8 | *Réserve* — variantes terminaison / origine | — | À sortir si la discussion devient technique |
-| 9 | *Réserve* — architecture pré-provisionnée | — | « Latence ajoutée : 0 ms » |
+| 3 | **Le précédent chiffré** | 0:45–1:45 | Turkcell Tone&Win : 50 marques, 72 campagnes, 200 000+ membres, ~20 min/abonné/mois. Et « Yesss! » dans le groupe Orange |
+| 4 | **Ce que nous affirmons / supposons / ignorons** | 1:45–2:45 | **La slide de crédibilité.** Trois colonnes : établi et sourcé · à confirmer par vous · et c'est pourquoi nous sommes là |
+| 5 | La répartition proposée | 2:45–3:45 | La décision de quoi diffuser reste chez Orange ; Call Com apporte la force de vente annonceurs |
+| 6 | Notre demande | 3:45–4:30 | Une réunion technique + 3 réponses. **Pas un POC.** Plus 4 engagements pris spontanément |
+| 7 | Les trois questions | 4:30–5:00 | Varier par appelant/zone ? · Diffuser à votre propre abonné ? · Durée réellement écoutée ? |
+| 8 | *Réserve* — variantes A / B | — | Qui entend l'annonce : l'appelant ou votre abonné |
+| 9 | *Réserve* — trois scénarios d'intégration | — | Pré-provisionnement recommandé ; « latence ajoutée : aucune » |
 
 ### Comment l'utiliser
 
-- **Ne pas dérouler les 22 questions** du §24 en première réunion : les mentionner et
-  s'arrêter. La vraie demande de cette réunion est **la réunion suivante**, avec l'équipe voix.
-- **Slide 3 : prendre son temps**, laisser un silence après la liste des marques, puis
+- **Slide 3 : prendre son temps.** Laisser un silence après la liste des marques, puis
   enchaîner sur « Yesss! ». C'est ce qui désamorce la moitié des objections.
-- **Slide 6 : énoncer les 4 engagements avant qu'on les demande.** C'est ce qui distingue
-  un partenaire d'un demandeur.
-- **Slide 4 : rester humble** — la capacité d'affectation par appelant vient d'une source
-  de presse, pas d'Orange. Ne jamais affirmer connaître leur architecture.
+- **Slide 4 : c'est la plus importante devant des ingénieurs.** La troisième colonne
+  (ce que nous ignorons) est ce qui rend les deux premières crédibles. **Ne jamais
+  affirmer connaître leur architecture.**
+- **Slide 6 : énoncer les 4 engagements avant qu'on les demande.** Et bien dire que le POC
+  n'est pas la demande du jour.
+- **Slide 7 : s'arrêter là.** La liste longue de questions techniques est préparée pour la
+  réunion suivante — la mentionner, ne pas la dérouler.
 
 ### Régénérer
 
@@ -102,9 +108,8 @@ node generate-deck-orange-5min.js
 ### Contrôles passés
 
 - `validate.py` : tout passe · audit géométrique des 9 slides : aucun débordement
-- Aucun glyphe à risque de substitution de police (le `✓` initial rendait en carré vide,
-  il a été remplacé par une pastille de couleur)
+- Aucun glyphe à risque de substitution de police
 - ⚠️ **LibreOffice étant non fonctionnel dans cet environnement, aucun rendu de référence
-  n'a pu être produit.** Le contrôle visuel a été fait via un rendu maison
-  (`python-pptx` + Pillow, police plus large que Calibri — contrôle conservateur).
+  n'a pu être produit.** Contrôle visuel via un rendu maison (`python-pptx` + Pillow,
+  police plus large que Calibri — contrôle conservateur).
   **À ouvrir une fois dans PowerPoint avant de présenter.**
