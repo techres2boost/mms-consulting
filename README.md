@@ -61,6 +61,7 @@ d'un problème technique.
 | [22 — Conclusion](docs/22-conclusion.md) | Réponse aux 12 questions du brief |
 | **[23 — Analyse de la spécification Call Com](docs/23-analyse-spec-call-com.md)** | **Écart spec ↔ dossier, ALT-F, accord opérateur, risque business** |
 | **[24 — Étude d'intégration Orange Tunisie](docs/24-etude-orange-integration.md)** | **Faisabilité télécom, 3 architectures d'intégration, POC, stratégie Orange Fab, checklist de 22 questions** |
+| [25 — Chiffrage de la mission](docs/25-chiffrage-mission.md) | Tarifs marché tunisien, chiffrage par livrable, formules commerciales, fiscalité, négociation |
 | [99 — Sources](docs/99-sources.md) | Références + **12 points à vérifier en Phase 0** |
 
 ## Code
@@ -69,6 +70,8 @@ d'un problème technique.
 |---|---|---|
 | [`docs/sql/`](docs/sql/) | 10 migrations PostgreSQL | **Exécutées avec succès sur PostgreSQL 16** |
 | [`docs/sql/tests/`](docs/sql/tests/) | 14 tests fonctionnels du ledger | **14/14 passent** |
+| [`docs/presentation/`](docs/presentation/) | Deck client (15 slides) + pitch Orange 5 min (9 slides) | Validés, générateurs inclus |
+| [`docs/devis/`](docs/devis/) | Devis ajustable (TJM, jours, TVA paramétrables) | 75 formules, 27 contrôles OK |
 
 Les tests vérifient notamment l'idempotence, le rejet des débits excédant le solde, le
 reversal sur échec de conversion, l'immuabilité append-only du ledger, et le fait qu'une
