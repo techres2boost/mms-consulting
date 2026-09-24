@@ -63,6 +63,7 @@ d'un problème technique.
 | **[24 — Étude d'intégration Orange Tunisie](docs/24-etude-orange-integration.md)** | **Faisabilité télécom, 3 architectures d'intégration, POC, stratégie Orange Fab, checklist de 22 questions** |
 | **[25 — Chiffrage de la mission](docs/25-chiffrage-mission.md)** | **v2.0** — chiffrage phasé, tarifs marché tunisien, fiscalité, négociation |
 | **[26 — Démarche phasée avant / pendant / après Orange](docs/26-demarche-phasee.md)** | **Le document opérationnel.** Dossier de Phase 1, playbook du rendez-vous, Phase 3 conditionnelle |
+| **[27 — Alternatives sans opérateur](docs/27-alternatives-sans-operateur.md)** | **Pub puis appel, VoIP, hybride, écoute rémunérée** — faisabilité, contraintes, recommandation |
 | [99 — Sources](docs/99-sources.md) | Références + **12 points à vérifier en Phase 0** |
 
 ## Code
