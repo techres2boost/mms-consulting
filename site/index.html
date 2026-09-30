@@ -4,36 +4,27 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>SSM Consulting — Logiciels métier sur mesure pour PME</title>
-<meta name="description" content="Quand un process important tourne encore sur Excel, des mails ou du papier, SSM Consulting construit l'outil qui le remplace — ou l'automatise. Web, mobile, automatisation, données, intégration.">
-<meta name="theme-color" content="#0B5577">
-<meta name="color-scheme" content="light">
+<meta name="description" content="Quand un process important tourne encore sur Excel, des mails ou du papier, SSM Consulting construit l'outil qui le remplace — ou l'automatise.">
+<meta name="theme-color" content="#0A0E1A">
 
 <!--
-  ════════════════════════════════════════════════════════════════════
-  À REMPLACER AVANT MISE EN LIGNE — tout est repérable par « example »,
-  « VOTRE- » ou « 00 000 000 » :
-    · https://ssm-consulting.example/      → votre domaine (canonical, og:url, og:image)
-    · contact@ssm-consulting.example       → votre adresse (3 occurrences : 2 liens + texte)
-    · +216 00 000 000                      → votre numéro (lien tel: + texte)
-    · https://stampi.example/              → site de Stampi
-    · linkedin.com/in/VOTRE-PROFIL         → votre profil LinkedIn
-    · github.com/VOTRE-COMPTE              → votre compte GitHub
-    · Mentions légales (pied de page)      → forme juridique, identifiant fiscal, hébergeur
-  ════════════════════════════════════════════════════════════════════
+  À REMPLACER avant diffusion :
+  - https://ssm-consulting.example/  → adresse réelle du site (canonical + Open Graph)
+  - https://stampi.example/          → lien réel vers Stampi
+  - Mentions légales (pied de page)  → forme juridique, identifiant, adresse, responsable de publication, hébergeur
 -->
 <link rel="canonical" href="https://ssm-consulting.example/">
-<!-- Version anglaise : dupliquer ce fichier dans /en/index.html, puis décommenter :
+<!-- Version anglaise (quand /en/index.html existera) :
 <link rel="alternate" hreflang="fr" href="https://ssm-consulting.example/">
 <link rel="alternate" hreflang="en" href="https://ssm-consulting.example/en/">
 <link rel="alternate" hreflang="x-default" href="https://ssm-consulting.example/">
 -->
 
-<!-- Aperçu lors du partage (WhatsApp, LinkedIn, e-mail) -->
 <meta property="og:type" content="website">
 <meta property="og:locale" content="fr_FR">
 <meta property="og:site_name" content="SSM Consulting">
 <meta property="og:title" content="SSM Consulting — Le logiciel qui manque à votre métier">
-<meta property="og:description" content="Quand un process important tourne encore sur Excel, des mails ou du papier, on construit l'outil qui le remplace — ou on l'automatise.">
+<meta property="og:description" content="Excel, mails, papier : on construit l'outil qui les remplace — ou on l'automatise. 20 minutes pour savoir si c'est réglable.">
 <meta property="og:url" content="https://ssm-consulting.example/">
 <meta property="og:image" content="https://ssm-consulting.example/og-image.png">
 <meta property="og:image:width" content="1200">
@@ -41,210 +32,416 @@
 <meta property="og:image:alt" content="SSM Consulting — Le logiciel qui manque à votre métier">
 <meta name="twitter:card" content="summary_large_image">
 
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230B5577'/%3E%3Ctext x='16' y='22.5' font-family='Arial,sans-serif' font-size='18' font-weight='700' fill='%23fff' text-anchor='middle'%3ES%3C/text%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%236366F1'/%3E%3Cstop offset='1' stop-color='%2306B6D4'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='32' height='32' rx='8' fill='url(%23g)'/%3E%3Cpath d='M21 10.5c-1.2-1-2.8-1.5-4.6-1.5-3 0-5 1.5-5 3.7 0 5 9.4 2.8 9.4 7 0 1.6-1.6 2.8-4.2 2.8-2 0-3.8-.7-5.1-1.9' fill='none' stroke='%23fff' stroke-width='2.6' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="preload" href="fonts/plus-jakarta-sans.woff2" as="font" type="font/woff2" crossorigin>
 
 <style>
+  @font-face{font-family:"Jakarta";src:url(fonts/plus-jakarta-sans.woff2) format("woff2");font-weight:200 800;font-display:swap}
   :root{
-    --brand:#0B5577;       /* couleur 1 : actions, liens      */
-    --brand-dark:#083E57;
-    --ink:#0F1B2A;         /* couleur 2 : titres, fond final  */
-    --text:#334155;
-    --muted:#5B6878;
-    --line:#E2E8F0;
-    --surface:#F6F8FA;
-    --tint:#EAF2F6;
-    --radius:10px;
-    --max:68rem;
+    /* 2 couleurs + gris */
+    --c1:#4F46E5;  --c1-l:#A5B4FC;   /* indigo */
+    --c2:#0E7490;  --c2-l:#22D3EE;   /* cyan   */
+    --grad:linear-gradient(120deg,#4F46E5 0%,#0E7490 100%);
+    --grad-l:linear-gradient(100deg,#A5B4FC 0%,#67E8F9 100%);
+    --ink:#0A0E1A; --ink-2:#121829;
+    --head:#0B1224; --text:#3B4556; --muted:#5E6A7D;
+    --line:#E6E8EF; --soft:#F5F6FA;
+    --r:16px; --max:72rem;
   }
   *,*::before,*::after{box-sizing:border-box}
   html{-webkit-text-size-adjust:100%}
   @media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
-  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
-       font-size:1.0625rem;line-height:1.6;color:var(--text);background:#fff}
-  h1,h2,h3{color:var(--ink);line-height:1.2;margin:0}
-  p{margin:0}
-  a{color:var(--brand)}
-  a:hover{color:var(--brand-dark)}
-  :focus-visible{outline:3px solid var(--brand);outline-offset:3px;border-radius:4px}
-  ul,ol{margin:0;padding:0;list-style:none}
-
+  body{margin:0;font-family:Jakarta,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+       font-size:1.0625rem;line-height:1.65;color:var(--text);background:#fff;-webkit-font-smoothing:antialiased;word-spacing:.04em}
+  h1,h2,h3,h4{color:var(--head);line-height:1.15;margin:0;letter-spacing:-.025em;word-spacing:normal}
+  p{margin:0} ul,ol{margin:0;padding:0;list-style:none}
+  a{color:var(--c1)}
+  :focus-visible{outline:3px solid var(--c2-l);outline-offset:3px;border-radius:6px}
   .wrap{max-width:var(--max);margin:0 auto;padding:0 1.25rem}
-  .skip{position:absolute;left:-999px;top:0;background:var(--ink);color:#fff;padding:.6rem 1rem;z-index:10}
+  .skip{position:absolute;left:-999px;top:0;background:#fff;color:var(--ink);padding:.6rem 1rem;z-index:50;border-radius:8px}
   .skip:focus{left:1rem;top:1rem}
 
   /* Boutons */
-  .btn{display:inline-block;background:var(--brand);color:#fff;text-decoration:none;font-weight:600;
-       padding:.85rem 1.4rem;border-radius:var(--radius);line-height:1.2;transition:background .15s}
-  .btn:hover{background:var(--brand-dark);color:#fff}
-  .btn-sm{padding:.55rem 1rem;font-size:.95rem}
-  .btn-light{background:#fff;color:var(--ink)}
-  .btn-light:hover{background:var(--tint);color:var(--ink)}
+  .btn{display:inline-flex;align-items:center;gap:.55rem;background:var(--grad);color:#fff;text-decoration:none;font-weight:700;
+       padding:.95rem 1.5rem;border-radius:999px;line-height:1.2;box-shadow:0 10px 30px -10px rgba(79,70,229,.7);
+       transition:transform .2s,box-shadow .2s}
+  .btn:hover{transform:translateY(-2px);box-shadow:0 16px 36px -12px rgba(79,70,229,.85)}
+  .btn svg{width:1.05em;height:1.05em;transition:transform .2s}
+  .btn:hover svg{transform:translateX(3px)}
+  .btn-sm{padding:.6rem 1.1rem;font-size:.9375rem;box-shadow:none}
+  .btn-white{background:#fff;color:var(--ink);box-shadow:0 10px 30px -10px rgba(0,0,0,.5)}
+  .ghost{color:#E2E8F0;font-weight:600;text-decoration:none;padding:.95rem .25rem;border-bottom:1px solid transparent}
+  .ghost:hover{border-color:#E2E8F0}
 
-  /* 1. En-tête */
-  .top{border-bottom:1px solid var(--line)}
-  .top .wrap{display:flex;align-items:center;justify-content:space-between;min-height:4rem;gap:1rem}
-  .logo{font-weight:700;font-size:1.125rem;color:var(--ink);text-decoration:none;letter-spacing:-.01em}
+  /* En-tête */
+  .top{position:sticky;top:0;z-index:40;background:rgba(10,14,26,.82);backdrop-filter:saturate(160%) blur(14px);
+       -webkit-backdrop-filter:saturate(160%) blur(14px);border-bottom:1px solid rgba(255,255,255,.07)}
+  .top .wrap{display:flex;align-items:center;justify-content:space-between;min-height:4.25rem;gap:1rem}
+  .logo{display:inline-flex;align-items:center;gap:.6rem;font-weight:800;font-size:1.125rem;color:#fff;text-decoration:none;letter-spacing:-.02em}
+  .logo .sub{color:#B4C0D0;font-weight:600}
+  .mark{width:2rem;height:2rem;flex:none}
+  .nav{display:none;gap:2rem}
+  .nav a{color:#CBD5E1;text-decoration:none;font-size:.9375rem;font-weight:500}
+  .nav a:hover{color:#fff}
+
+  /* Hero */
+  .hero{position:relative;overflow:hidden;background:var(--ink);color:#CBD5E1;padding:4rem 0 4.5rem}
+  .hero::before{content:"";position:absolute;inset:0;pointer-events:none;
+    background:radial-gradient(40rem 26rem at 85% 10%,rgba(99,102,241,.35),transparent 60%),
+               radial-gradient(34rem 24rem at 5% 100%,rgba(6,182,212,.22),transparent 60%)}
+  .hero::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.5;
+    background-image:linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px);
+    background-size:3.5rem 3.5rem;-webkit-mask-image:radial-gradient(ellipse at 50% 30%,#000 20%,transparent 75%);mask-image:radial-gradient(ellipse at 50% 30%,#000 20%,transparent 75%)}
+  .hero .wrap{position:relative;z-index:1;display:grid;gap:3rem;align-items:center}
+  .pill{display:inline-flex;align-items:center;gap:.55rem;font-size:.8125rem;font-weight:600;color:#E2E8F0;
+        border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.05);padding:.4rem .85rem;border-radius:999px;margin-bottom:1.5rem}
+  .dot{width:.5rem;height:.5rem;border-radius:50%;background:var(--c2-l);box-shadow:0 0 0 4px rgba(34,211,238,.18)}
+  .hero h1{color:#fff;font-size:clamp(2.4rem,8vw,4.25rem);font-weight:800;letter-spacing:-.04em;line-height:1.04;margin-bottom:1.4rem}
+  .grad{background:var(--grad-l);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .lead{font-size:clamp(1.0625rem,2.4vw,1.25rem);max-width:36rem;margin-bottom:2.25rem;color:#CBD5E1}
+  .actions{display:flex;flex-wrap:wrap;align-items:center;gap:.75rem 1.5rem}
+  .proof{display:flex;flex-wrap:wrap;gap:.6rem 1.5rem;margin-top:2.25rem;font-size:.9375rem;color:#94A3B8}
+  .proof li{display:flex;align-items:center;gap:.45rem}
+  .proof svg{width:1rem;height:1rem;color:var(--c2-l);flex:none}
+
+  /* Maquette décorative */
+  .mock{position:relative;max-width:30rem;width:100%;justify-self:center}
+  .win{background:linear-gradient(180deg,rgba(255,255,255,.09),rgba(255,255,255,.04));border:1px solid rgba(255,255,255,.12);
+       border-radius:18px;box-shadow:0 40px 80px -30px rgba(0,0,0,.8);overflow:hidden}
+  .win-bar{display:flex;align-items:center;gap:.4rem;padding:.8rem 1rem;border-bottom:1px solid rgba(255,255,255,.08);font-size:.75rem;color:#94A3B8}
+  .win-bar i{width:.6rem;height:.6rem;border-radius:50%;background:rgba(255,255,255,.18)}
+  .win-bar b{margin-left:.5rem;font-weight:600}
+  .win-body{padding:1.1rem;display:grid;gap:1rem}
+  .kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:.6rem}
+  .kpi{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:.7rem}
+  .kpi small{display:block;font-size:.6875rem;color:#94A3B8;margin-bottom:.35rem}
+  .kpi span{display:block;height:.55rem;border-radius:4px;background:var(--grad-l);opacity:.9}
+  .chart{display:flex;align-items:flex-end;gap:.45rem;height:6.5rem;padding:.8rem;border-radius:12px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08)}
+  .chart i{flex:1;border-radius:5px 5px 2px 2px;background:linear-gradient(180deg,#818CF8,rgba(99,102,241,.25))}
+  .chart i:nth-child(even){background:linear-gradient(180deg,#22D3EE,rgba(6,182,212,.2))}
+  .rows{display:grid;gap:.45rem}
+  .row{display:flex;align-items:center;justify-content:space-between;gap:.75rem;font-size:.75rem;color:#CBD5E1;
+       padding:.55rem .7rem;border-radius:10px;background:rgba(255,255,255,.04)}
+  .row em{font-style:normal;font-weight:700;font-size:.6875rem;padding:.15rem .5rem;border-radius:999px;background:rgba(34,211,238,.14);color:#67E8F9}
+  .row em.v{background:rgba(129,140,248,.18);color:#C7D2FE}
+  .toast{position:absolute;display:flex;align-items:center;gap:.55rem;font-size:.8125rem;font-weight:600;color:var(--head);
+         background:#fff;border-radius:12px;padding:.6rem .85rem;box-shadow:0 20px 40px -15px rgba(0,0,0,.6)}
+  .toast svg{width:1.1rem;height:1.1rem;color:#0E7490;flex:none}
+  .t1{left:-1rem;bottom:-1.2rem}
+  .t2{right:-.75rem;top:-1.3rem}
+  @media (max-width:30rem){.t1{left:.25rem}.t2{right:.25rem}}
 
   /* Sections */
-  section{padding:3.5rem 0}
-  .eyebrow{font-size:.8125rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--brand);margin-bottom:.6rem}
-  h2{font-size:clamp(1.5rem,4.2vw,2.125rem);letter-spacing:-.015em;margin-bottom:1.75rem;max-width:36rem}
-  h3{font-size:1.125rem}
+  section{padding:4.5rem 0;scroll-margin-top:4rem}
+  .eyebrow{display:inline-block;font-size:.8125rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--c1);margin-bottom:.85rem}
+  h2{font-size:clamp(1.85rem,5vw,2.75rem);font-weight:800;max-width:40rem}
+  .intro{max-width:38rem;margin-top:1rem;font-size:1.125rem;color:var(--muted)}
+  .head{margin-bottom:2.75rem}
+  .soft{background:var(--soft)}
 
-  /* 2. Hero */
-  .hero{padding:3.5rem 0 3rem}
-  .hero h1{font-size:clamp(2.1rem,7vw,3.5rem);letter-spacing:-.025em;max-width:16ch;margin-bottom:1.25rem}
-  .hero p{font-size:clamp(1.0625rem,2.4vw,1.25rem);max-width:38rem;margin-bottom:2rem}
+  /* Constat */
+  .quotes{display:grid;gap:1rem;grid-template-columns:1fr}
+  .quote{position:relative;background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:1.6rem 1.4rem 1.4rem 3.4rem;
+         font-size:1.0625rem;font-weight:700;color:var(--head);line-height:1.4;transition:transform .2s,box-shadow .2s,border-color .2s}
+  .quote::before{content:"\201C";position:absolute;left:1.1rem;top:.55rem;font-size:3.25rem;line-height:1;font-weight:800;
+                 background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .quote:hover{transform:translateY(-3px);border-color:#C7D2FE;box-shadow:0 18px 40px -24px rgba(79,70,229,.45)}
+  .cost{border-radius:var(--r);padding:1.6rem 1.5rem;background:var(--ink);color:#CBD5E1;font-size:1.125rem;line-height:1.5;
+        position:relative;overflow:hidden}
+  .cost::before{content:"";position:absolute;inset:auto -20% -60% auto;width:18rem;height:18rem;background:radial-gradient(circle,rgba(99,102,241,.45),transparent 65%)}
+  .cost p{position:relative}
+  .cost strong{display:block;margin-top:.35rem;font-size:1.3rem;color:#fff}
 
-  /* 3. Phrases */
-  .alt{background:var(--surface)}
-  .quotes{display:grid;gap:.85rem;grid-template-columns:1fr}
-  .quotes li{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:1.1rem 1.2rem;
-             font-size:1.0625rem;font-weight:600;color:var(--ink)}
-  .close{margin-top:2rem;font-size:1.125rem;color:var(--ink);max-width:40rem}
-  .close strong{color:var(--brand)}
-
-  /* 4. Ce qu'on fait */
+  /* Services */
   .services{display:grid;gap:1rem;grid-template-columns:1fr}
-  .services li{border-top:2px solid var(--ink);padding-top:1rem}
-  .services h3{margin-bottom:.4rem}
-  .services p{color:var(--muted)}
+  .svc{position:relative;display:flex;flex-direction:column;border:1px solid var(--line);border-radius:var(--r);padding:1.75rem;background:#fff;
+       transition:transform .2s,box-shadow .2s,border-color .2s}
+  .svc:hover{transform:translateY(-3px);border-color:#C7D2FE;box-shadow:0 24px 50px -30px rgba(15,23,42,.35)}
+  .svc-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem}
+  .ico{display:grid;place-items:center;width:3rem;height:3rem;border-radius:14px;background:var(--grad);color:#fff;box-shadow:0 10px 24px -10px rgba(79,70,229,.8)}
+  .ico svg{width:1.4rem;height:1.4rem}
+  .num{font-size:.875rem;font-weight:700;color:var(--muted);letter-spacing:.05em}
+  .svc h3{font-size:1.3rem;font-weight:800;margin-bottom:.5rem}
+  .svc>p{color:var(--muted)}
+  .when{margin-top:1.1rem;font-size:.9375rem;color:var(--text);padding:.7rem .9rem;border-radius:10px;background:var(--soft)}
+  .when b{color:var(--c1);font-weight:700}
+  .tags{display:flex;flex-wrap:wrap;gap:.45rem;margin-top:1.1rem;padding-top:1.1rem;border-top:1px dashed var(--line)}
+  .tags li{font-size:.8125rem;font-weight:600;color:var(--head);border:1px solid var(--line);border-radius:999px;padding:.3rem .7rem;background:#fff}
 
-  /* 5. Études de cas */
+  /* Réalisations */
+  .dark{background:var(--ink);color:#CBD5E1;position:relative;overflow:hidden}
+  .dark::before{content:"";position:absolute;inset:0;background:radial-gradient(36rem 22rem at 100% 0,rgba(99,102,241,.25),transparent 60%);pointer-events:none}
+  .dark .wrap{position:relative}
+  .dark h2{color:#fff}
+  .dark .eyebrow{color:var(--c2-l)}
+  .dark .intro{color:#94A3B8}
   .cases{display:grid;gap:1.25rem;grid-template-columns:1fr}
-  .case{border:1px solid var(--line);border-radius:var(--radius);padding:1.5rem;background:#fff;display:flex;flex-direction:column}
-  .sector{font-size:.8125rem;color:var(--muted);margin-bottom:.5rem}
-  .case h3{font-size:clamp(1.25rem,3vw,1.5rem);margin-bottom:.75rem}
-  .case .ctx{margin-bottom:1.25rem}
-  .case h4{font-size:.8125rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ink);margin:0 0 .6rem}
-  .needs li{position:relative;padding-left:1.5rem;margin-bottom:.4rem}
-  .needs li::before{content:"";position:absolute;left:.1rem;top:.55em;width:.5rem;height:.5rem;border-radius:2px;background:var(--brand)}
-  .case .more{margin-top:auto;padding-top:1.25rem;font-size:.9375rem;color:var(--muted)}
+  .case{position:relative;display:flex;flex-direction:column;border-radius:20px;padding:2rem 1.6rem;
+        background:linear-gradient(180deg,rgba(255,255,255,.07),rgba(255,255,255,.025));border:1px solid rgba(255,255,255,.1)}
+  .case:hover{border-color:rgba(165,180,252,.45)}
+  .case-top{display:flex;align-items:center;gap:.85rem;margin-bottom:1.5rem}
+  .case .ico{width:2.75rem;height:2.75rem;border-radius:12px}
+  .sector{font-size:.8125rem;color:#94A3B8}
+  .case h3{color:#fff;font-size:clamp(1.45rem,3.4vw,1.85rem);font-weight:800;margin-bottom:.9rem}
+  .case .ctx{margin-bottom:1.5rem}
+  .case h4{font-size:.75rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#94A3B8;margin-bottom:.75rem}
+  .needs{display:flex;flex-wrap:wrap;gap:.5rem}
+  .needs li{font-size:.875rem;font-weight:600;color:#E2E8F0;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:999px;padding:.35rem .8rem}
+  .case .more{margin-top:auto;padding-top:1.75rem}
+  .case .more a{display:inline-flex;align-items:center;gap:.4rem;color:#fff;font-weight:700;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.35);padding-bottom:.1rem}
+  .case .more a:hover{border-color:#fff}
+  .case .more svg{width:.95rem;height:.95rem}
 
-  /* 6. Méthode */
-  .steps{display:grid;gap:1.25rem;grid-template-columns:1fr;counter-reset:s}
-  .steps li{counter-increment:s;display:grid;grid-template-columns:2.5rem 1fr;gap:.9rem;align-items:start}
-  .steps li::before{content:counter(s);display:grid;place-items:center;width:2.25rem;height:2.25rem;border-radius:50%;
-                    background:var(--tint);color:var(--brand);font-weight:700}
-  .steps strong{color:var(--ink);display:block}
+  /* Méthode */
+  .steps{display:grid;gap:1rem;grid-template-columns:1fr;counter-reset:s}
+  .steps li{counter-increment:s;position:relative;padding:1.75rem 1.5rem;border-radius:var(--r);border:1px solid var(--line);background:#fff}
+  .steps li::before{content:"0" counter(s);display:block;font-size:2.5rem;font-weight:800;letter-spacing:-.04em;line-height:1;margin-bottom:1rem;
+                    background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .steps h3{font-size:1.15rem;font-weight:800;margin-bottom:.4rem}
+  .steps p{color:var(--muted);font-size:1rem}
 
-  /* 7. Qui */
-  .who{display:grid;gap:1.25rem;grid-template-columns:1fr;align-items:center}
-  .avatar{width:5.5rem;height:5.5rem;border-radius:50%;background:var(--ink);color:#fff;display:grid;place-items:center;
-          font-size:1.75rem;font-weight:700;letter-spacing:.02em}
-  .who p{max-width:40rem}
-  .who .name{color:var(--ink);font-weight:700}
-  .links{display:flex;gap:1.25rem;margin-top:1rem;flex-wrap:wrap}
-  .links a{font-weight:600}
+  /* Pourquoi */
+  .why{display:grid;gap:2.5rem;grid-template-columns:1fr}
+  .why-list{display:grid;gap:1.5rem}
+  .why-list li{display:grid;grid-template-columns:auto 1fr;gap:1rem;align-items:start}
+  .why-list .ico{width:2.75rem;height:2.75rem;border-radius:12px}
+  .why-list h3{font-size:1.125rem;font-weight:800;margin-bottom:.3rem}
+  .why-list p{color:var(--muted)}
 
-  /* 8. Appel final */
-  .final{background:var(--ink);color:#DCE3EA;text-align:left}
-  .final h2{color:#fff;margin-bottom:.75rem}
-  .final p{font-size:1.125rem;margin-bottom:1.75rem}
-  .contact{display:flex;flex-direction:column;gap:.9rem;align-items:flex-start}
-  .contact .alt-contact{font-size:1rem}
-  .contact .alt-contact a{color:#fff}
+  /* Appel final */
+  .cta{position:relative;overflow:hidden;border-radius:28px;padding:3rem 1.5rem;background:var(--ink);color:#CBD5E1;text-align:center}
+  .cta::before{content:"";position:absolute;inset:0;pointer-events:none;
+    background:radial-gradient(30rem 18rem at 15% 0,rgba(99,102,241,.5),transparent 60%),radial-gradient(28rem 18rem at 90% 100%,rgba(6,182,212,.4),transparent 60%)}
+  .cta>*{position:relative}
+  .cta h2{color:#fff;margin:0 auto 1rem;max-width:34rem}
+  .cta>p{font-size:1.1875rem;margin-bottom:2rem}
+  .reach{display:flex;flex-wrap:wrap;justify-content:center;gap:.75rem 1.75rem;margin-top:1.75rem;font-size:1rem}
+  .reach a{display:inline-flex;align-items:center;gap:.5rem;color:#fff;text-decoration:none;font-weight:600}
+  .reach a:hover{text-decoration:underline}
+  .reach svg{width:1.05rem;height:1.05rem;color:var(--c2-l)}
 
-  /* 9. Pied de page */
-  footer{padding:2rem 0;font-size:.875rem;color:var(--muted)}
-  footer .wrap{display:flex;flex-direction:column;gap:.75rem}
-  details summary{cursor:pointer;color:var(--text)}
-  details p{margin-top:.6rem;max-width:44rem}
+  /* Pied de page */
+  footer{padding:2.5rem 0 3rem;font-size:.875rem;color:var(--muted);border-top:1px solid var(--line)}
+  footer .wrap{display:flex;flex-direction:column;gap:1rem}
+  footer .logo{color:var(--head);font-size:1rem}
+  footer .logo .sub{color:var(--muted)}
+  details summary{cursor:pointer;color:var(--text);font-weight:600}
+  details p{margin-top:.6rem;max-width:46rem}
 
-  /* Tablette et plus */
+  /* Animation d'entrée (désactivée si l'utilisateur réduit les animations) */
+  @media (prefers-reduced-motion:no-preference){
+    .rise{animation:rise .8s cubic-bezier(.2,.7,.2,1) both}
+    .d1{animation-delay:.08s}.d2{animation-delay:.16s}.d3{animation-delay:.24s}.d4{animation-delay:.36s}
+    @keyframes rise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+  }
+
+  /* Tablette */
   @media (min-width:40rem){
     .quotes{grid-template-columns:repeat(2,1fr)}
-    .services{grid-template-columns:repeat(2,1fr);gap:1.75rem 2rem}
-    .steps{grid-template-columns:repeat(2,1fr);gap:1.75rem 2rem}
-    .who{grid-template-columns:auto 1fr;gap:2rem}
-    .contact{flex-direction:row;align-items:center;gap:1.5rem}
+    .services{grid-template-columns:repeat(2,1fr)}
+    .services .svc:last-child{grid-column:1/-1}
+    .steps{grid-template-columns:repeat(2,1fr)}
+    .cta{padding:4.5rem 3rem}
     footer .wrap{flex-direction:row;justify-content:space-between;align-items:flex-start}
   }
+  /* Bureau */
   @media (min-width:60rem){
-    section{padding:5rem 0}
-    .hero{padding:5.5rem 0 5rem}
+    section{padding:6.5rem 0}
+    .nav{display:flex}
+    .hero{padding:6rem 0 7rem}
+    .hero .wrap{grid-template-columns:1.1fr .9fr;gap:4rem}
     .quotes{grid-template-columns:repeat(3,1fr)}
-    .services{grid-template-columns:repeat(3,1fr)}
-    .cases{grid-template-columns:repeat(2,1fr)}
+    .cost{grid-column:span 2;display:flex;align-items:center;padding:2rem 2.25rem}
+    .services{grid-template-columns:repeat(6,1fr)}
+    .services .svc{grid-column:span 2}
+    .services .svc:nth-child(-n+2){grid-column:span 3}
+    .services .svc:last-child{grid-column:span 2}
+    .cases{grid-template-columns:repeat(2,1fr);gap:1.5rem}
+    .case{padding:2.5rem 2.25rem}
+    .steps{grid-template-columns:repeat(4,1fr)}
+    .why{grid-template-columns:.9fr 1.1fr;gap:5rem;align-items:start}
   }
 </style>
 </head>
 <body>
 <a class="skip" href="#main">Aller au contenu</a>
 
-<!-- 1. En-tête -->
+<!-- Icônes (réutilisées via <use>) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#6366F1"/><stop offset="1" stop-color="#06B6D4"/></linearGradient>
+  </defs>
+  <symbol id="i-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+  <symbol id="i-out" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5"/></symbol>
+  <symbol id="i-build" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="14" rx="2.5"/><path d="M3 9h18M8 21h8M12 18v3"/></symbol>
+  <symbol id="i-auto" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 4 14h7l-1 8 9-12h-7l1-8z"/></symbol>
+  <symbol id="i-data" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></symbol>
+  <symbol id="i-link" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 14a4.5 4.5 0 0 0 6.4 0l3.2-3.2a4.5 4.5 0 0 0-6.4-6.4L12 5.6"/><path d="M14 10a4.5 4.5 0 0 0-6.4 0l-3.2 3.2a4.5 4.5 0 0 0 6.4 6.4l1.2-1.2"/></symbol>
+  <symbol id="i-care" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 4 6v6c0 4.5 3.4 8 8 9 4.6-1 8-4.5 8-9V6l-8-3z"/><path d="m8.5 12 2.5 2.5 4.5-5"/></symbol>
+  <symbol id="i-offline" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 8.8a15 15 0 0 1 4.2-2.6M10.6 5.1A15 15 0 0 1 22 8.8M5 12.9a10 10 0 0 1 4-2.3M15.3 10.8A10 10 0 0 1 19 12.9M8.5 16.4a5 5 0 0 1 7 0M12 20h.01M3 3l18 18"/></symbol>
+  <symbol id="i-users" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0M16 4.6a3.5 3.5 0 0 1 0 6.8M21.5 20a6.5 6.5 0 0 0-4-6"/></symbol>
+  <symbol id="i-exp" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 3 7l9 5 9-5-9-5zM3 12l9 5 9-5M3 17l9 5 9-5"/></symbol>
+  <symbol id="i-one" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/></symbol>
+  <symbol id="i-sme" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V8l7-5 7 5v13M9 21v-6h6v6"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2.5"/><path d="m2 7 10 7 10-7"/></symbol>
+</svg>
+
 <header class="top">
   <div class="wrap">
-    <a class="logo" href="#main">SSM Consulting</a>
+    <a class="logo" href="#main" aria-label="SSM Consulting — haut de page">
+      <svg class="mark" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="9" fill="url(#lg)"/><path d="M21 10.5c-1.2-1-2.8-1.5-4.6-1.5-3 0-5 1.5-5 3.7 0 5 9.4 2.8 9.4 7 0 1.6-1.6 2.8-4.2 2.8-2 0-3.8-.7-5.1-1.9" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round"/></svg>
+      <span>SSM <span class="sub">Consulting</span></span>
+    </a>
+    <nav class="nav" aria-label="Navigation principale">
+      <a href="#services">Services</a>
+      <a href="#work">Réalisations</a>
+      <a href="#method">Méthode</a>
+    </nav>
     <a class="btn btn-sm" href="#contact">Parlons-en</a>
   </div>
 </header>
 
 <main id="main">
 
-  <!-- 2. Hero -->
+  <!-- Hero -->
   <section class="hero" aria-labelledby="hero-title">
     <div class="wrap">
-      <h1 id="hero-title">Le logiciel qui manque à votre métier</h1>
-      <p>Quand un process important tourne encore sur Excel, des mails ou du papier, on construit l'outil qui le remplace — ou on l'automatise.</p>
-      <a class="btn" href="mailto:contact@ssm-consulting.example?subject=%C3%89change%20de%2020%20minutes&amp;body=Bonjour%20Salem%2C%0A%0AJe%20souhaiterais%20un%20%C3%A9change%20de%2020%20minutes%20au%20sujet%20de%20%3A%20%0A%0AMes%20disponibilit%C3%A9s%20%3A%20%0A">Réserver 20 minutes</a>
+      <div>
+        <p class="pill rise"><span class="dot" aria-hidden="true"></span>Logiciel métier · Automatisation · Données</p>
+        <h1 id="hero-title" class="rise d1">Le logiciel qui manque à <span class="grad">votre métier</span></h1>
+        <p class="lead rise d2">Quand un process important tourne encore sur Excel, des mails ou du papier, on construit l'outil qui le remplace — ou on l'automatise.</p>
+        <div class="actions rise d3">
+          <a class="btn" href="mailto:salem.haddadbecha@gmail.com?subject=%C3%89change%20de%2020%20minutes%20%E2%80%94%20SSM%20Consulting&amp;body=Bonjour%2C%0A%0AJe%20souhaiterais%20un%20%C3%A9change%20de%2020%20minutes%20au%20sujet%20de%20%3A%20%0A%0A%0AEntreprise%20%3A%20%0AT%C3%A9l%C3%A9phone%20%3A%20%0AMes%20disponibilit%C3%A9s%20%3A%20%0A">Réserver 20 minutes <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+          <a class="ghost" href="#work">Voir nos réalisations</a>
+        </div>
+        <ul class="proof rise d4">
+          <li><svg aria-hidden="true"><use href="#i-check"/></svg>Prix au forfait</li>
+          <li><svg aria-hidden="true"><use href="#i-check"/></svg>Livraison par lots</li>
+          <li><svg aria-hidden="true"><use href="#i-check"/></svg>Code et documentation livrés</li>
+        </ul>
+      </div>
+
+      <div class="mock rise d3" aria-hidden="true">
+        <div class="win">
+          <div class="win-bar"><i></i><i></i><i></i><b>Tableau de bord</b></div>
+          <div class="win-body">
+            <div class="kpis">
+              <div class="kpi"><small>Commandes</small><span style="width:80%"></span></div>
+              <div class="kpi"><small>Relances</small><span style="width:55%"></span></div>
+              <div class="kpi"><small>Stock</small><span style="width:68%"></span></div>
+            </div>
+            <div class="chart"><i style="height:38%"></i><i style="height:52%"></i><i style="height:45%"></i><i style="height:66%"></i><i style="height:58%"></i><i style="height:78%"></i><i style="height:72%"></i><i style="height:92%"></i></div>
+            <div class="rows">
+              <div class="row">Import fournisseurs <em>Automatisé</em></div>
+              <div class="row">Caisse — 3 terminaux <em class="v">Synchronisé</em></div>
+              <div class="row">Rapport mensuel <em>À jour</em></div>
+            </div>
+          </div>
+        </div>
+        <div class="toast t1"><svg><use href="#i-check"/></svg>Relance envoyée automatiquement</div>
+        <div class="toast t2"><svg><use href="#i-offline"/></svg>Hors ligne : aucune vente perdue</div>
+      </div>
     </div>
   </section>
 
-  <!-- 3. Phrases -->
-  <section class="alt" id="problems" aria-labelledby="problems-title">
+  <!-- Constat -->
+  <section class="soft" id="problems" aria-labelledby="problems-title">
     <div class="wrap">
-      <h2 id="problems-title">Vous reconnaissez une de ces phrases&nbsp;?</h2>
+      <div class="head">
+        <p class="eyebrow">Le constat</p>
+        <h2 id="problems-title">Vous reconnaissez une de ces phrases&nbsp;?</h2>
+      </div>
       <ul class="quotes">
-        <li>«&nbsp;On gère tout sur Excel&nbsp;»</li>
-        <li>«&nbsp;Untel passe ses journées à recopier&nbsp;»</li>
-        <li>«&nbsp;On a acheté un logiciel, personne ne l'utilise&nbsp;»</li>
-        <li>«&nbsp;On met une semaine à sortir les chiffres&nbsp;»</li>
-        <li>«&nbsp;Il faut demander à X, c'est lui qui sait&nbsp;»</li>
-        <li>«&nbsp;Nos deux logiciels ne se parlent pas&nbsp;»</li>
-        <li>«&nbsp;On ne sait pas où on en est&nbsp;»</li>
+        <li class="quote">On gère tout sur Excel.</li>
+        <li class="quote">Untel passe ses journées à recopier.</li>
+        <li class="quote">On a acheté un logiciel, personne ne l'utilise.</li>
+        <li class="quote">On met une semaine à sortir les chiffres.</li>
+        <li class="quote">Il faut demander à X, c'est lui qui sait.</li>
+        <li class="quote">Nos deux logiciels ne se parlent pas.</li>
+        <li class="quote">On ne sait pas où on en est.</li>
+        <li class="cost"><p>Chacune de ces phrases coûte des heures chaque mois. <strong>Aucune ne se voit dans les comptes.</strong></p></li>
       </ul>
-      <p class="close">Chacune de ces phrases coûte des heures chaque mois. <strong>Aucune ne se voit dans les comptes.</strong></p>
     </div>
   </section>
 
-  <!-- 4. Ce qu'on fait -->
+  <!-- Services -->
   <section id="services" aria-labelledby="services-title">
     <div class="wrap">
-      <h2 id="services-title">Ce qu'on fait</h2>
+      <div class="head">
+        <p class="eyebrow">Nos services</p>
+        <h2 id="services-title">Ce qu'on fait</h2>
+        <p class="intro">Cinq façons de récupérer ces heures — du premier diagnostic à l'outil qui tourne au quotidien.</p>
+      </div>
       <ul class="services">
-        <li><h3>Automatiser un process manuel</h3><p>Supprimer les ressaisies, les relances et les fichiers partagés.</p></li>
-        <li><h3>Construire le logiciel métier qui n'existe pas</h3><p>Application web ou mobile, conçue pour votre façon de travailler.</p></li>
-        <li><h3>Mettre vos chiffres au clair</h3><p>Pipelines, tableaux de bord, KPI fiables et à jour.</p></li>
-        <li><h3>Faire parler vos systèmes entre eux</h3><p>ERP, EDI, API, portails clients et fournisseurs.</p></li>
-        <li><h3>Faire vivre ce qui tourne</h3><p>Supervision, corrections, évolutions.</p></li>
+        <li class="svc">
+          <div class="svc-top"><span class="ico"><svg aria-hidden="true"><use href="#i-build"/></svg></span><span class="num">01</span></div>
+          <h3>Construire le logiciel métier qui n'existe pas</h3>
+          <p>Une application web ou mobile, conçue pour votre façon de travailler — pas l'inverse.</p>
+          <p class="when"><b>Quand</b> «&nbsp;on a acheté un logiciel, personne ne l'utilise&nbsp;».</p>
+          <ul class="tags"><li>Application web &amp; mobile</li><li>Fonctionne hors ligne</li><li>Multi-sites &amp; rôles</li></ul>
+        </li>
+        <li class="svc">
+          <div class="svc-top"><span class="ico"><svg aria-hidden="true"><use href="#i-auto"/></svg></span><span class="num">02</span></div>
+          <h3>Automatiser un process manuel</h3>
+          <p>Supprimer les ressaisies, les relances et les fichiers partagés.</p>
+          <p class="when"><b>Quand</b> «&nbsp;untel passe ses journées à recopier&nbsp;».</p>
+          <ul class="tags"><li>Workflows automatisés</li><li>Relances &amp; alertes</li><li>Fin du copier-coller</li></ul>
+        </li>
+        <li class="svc">
+          <div class="svc-top"><span class="ico"><svg aria-hidden="true"><use href="#i-data"/></svg></span><span class="num">03</span></div>
+          <h3>Mettre vos chiffres au clair</h3>
+          <p>Des indicateurs fiables et à jour, sans tableur à consolider.</p>
+          <p class="when"><b>Quand</b> «&nbsp;on met une semaine à sortir les chiffres&nbsp;».</p>
+          <ul class="tags"><li>Pipelines de données</li><li>Tableaux de bord</li><li>KPI</li></ul>
+        </li>
+        <li class="svc">
+          <div class="svc-top"><span class="ico"><svg aria-hidden="true"><use href="#i-link"/></svg></span><span class="num">04</span></div>
+          <h3>Faire parler vos systèmes entre eux</h3>
+          <p>Les données circulent seules entre vos outils, vos clients et vos fournisseurs.</p>
+          <p class="when"><b>Quand</b> «&nbsp;nos deux logiciels ne se parlent pas&nbsp;».</p>
+          <ul class="tags"><li>ERP</li><li>EDI</li><li>API</li><li>Portails clients &amp; fournisseurs</li></ul>
+        </li>
+        <li class="svc">
+          <div class="svc-top"><span class="ico"><svg aria-hidden="true"><use href="#i-care"/></svg></span><span class="num">05</span></div>
+          <h3>Faire vivre ce qui tourne</h3>
+          <p>L'outil reste fiable, documenté et à jour — même quand l'équipe change.</p>
+          <p class="when"><b>Quand</b> «&nbsp;il faut demander à X, c'est lui qui sait&nbsp;».</p>
+          <ul class="tags"><li>Supervision</li><li>Corrections</li><li>Évolutions</li></ul>
+        </li>
       </ul>
     </div>
   </section>
 
-  <!-- 5. Études de cas -->
-  <section class="alt" id="work" aria-labelledby="work-title">
+  <!-- Réalisations -->
+  <section class="dark" id="work" aria-labelledby="work-title">
     <div class="wrap">
-      <h2 id="work-title">Ce qu'on a construit</h2>
+      <div class="head">
+        <p class="eyebrow">Réalisations</p>
+        <h2 id="work-title">Ce qu'on a construit</h2>
+        <p class="intro">Deux problèmes techniques concrets, et ce qu'il a fallu construire pour les résoudre.</p>
+      </div>
       <div class="cases">
 
         <article class="case" aria-labelledby="case1-title">
-          <p class="sector">Contexte&nbsp;: restauration</p>
+          <div class="case-top"><span class="ico"><svg aria-hidden="true"><use href="#i-offline"/></svg></span><p class="sector">Contexte&nbsp;: restauration</p></div>
           <h3 id="case1-title">Encaisser même quand le réseau tombe</h3>
           <p class="ctx">Un système de caisse utilisé en plein service, sur plusieurs terminaux. Une coupure internet ne doit jamais interrompre une vente.</p>
           <h4>Ce que ça a demandé</h4>
           <ul class="needs">
             <li>Fonctionnement hors ligne complet</li>
-            <li>Synchronisation entre plusieurs terminaux, avec résolution de conflits</li>
+            <li>Synchronisation multi-terminaux</li>
+            <li>Résolution de conflits</li>
             <li>Isolation des données par établissement</li>
-            <li>Application mobile et web sur une base commune</li>
+            <li>Mobile et web sur une base commune</li>
             <li>Journal d'audit inaltérable</li>
           </ul>
-          <p class="more"><a href="https://res2boost.com" rel="noopener">res2boost.com</a></p>
+          <p class="more"><a href="https://res2boost.com" rel="noopener">res2boost.com <svg aria-hidden="true"><use href="#i-out"/></svg></a></p>
         </article>
 
         <article class="case" aria-labelledby="case2-title">
-          <p class="sector">Contexte&nbsp;: restauration</p>
+          <div class="case-top"><span class="ico"><svg aria-hidden="true"><use href="#i-users"/></svg></span><p class="sector">Contexte&nbsp;: restauration</p></div>
           <h3 id="case2-title">Savoir qui sont ses meilleurs clients</h3>
           <p class="ctx">Chaque passage en caisse laisse une trace, mais personne ne l'exploite. L'enjeu&nbsp;: transformer ces transactions en connaissance client exploitable.</p>
           <h4>Ce que ça a demandé</h4>
@@ -254,66 +451,69 @@
             <li>Tableaux de bord</li>
             <li>Campagnes automatisées</li>
           </ul>
-          <p class="more"><a href="https://stampi.example/" rel="noopener">Voir Stampi</a></p>
+          <p class="more"><a href="https://stampi.example/" rel="noopener">Voir Stampi <svg aria-hidden="true"><use href="#i-out"/></svg></a></p>
         </article>
 
       </div>
     </div>
   </section>
 
-  <!-- 6. Méthode -->
+  <!-- Méthode -->
   <section id="method" aria-labelledby="method-title">
     <div class="wrap">
-      <h2 id="method-title">Comment on travaille</h2>
+      <div class="head">
+        <p class="eyebrow">Méthode</p>
+        <h2 id="method-title">Comment on travaille</h2>
+      </div>
       <ol class="steps">
-        <li><div><strong>On commence par un diagnostic.</strong> Quelques jours à cartographier le process réel, et un plan chiffré. Même sans suite, vous repartez avec une vision claire.</div></li>
-        <li><div><strong>On livre par lots courts.</strong> Chaque lot est utilisable seul.</div></li>
-        <li><div><strong>Prix au forfait.</strong> Pas de facturation à la journée.</div></li>
-        <li><div><strong>Code et documentation livrés.</strong> Vous n'êtes jamais prisonnier.</div></li>
+        <li><h3>On commence par un diagnostic</h3><p>Quelques jours à cartographier le process réel, et un plan chiffré. Même sans suite, vous repartez avec une vision claire.</p></li>
+        <li><h3>On livre par lots courts</h3><p>Chaque lot est utilisable seul. Vous voyez le résultat avant d'engager la suite.</p></li>
+        <li><h3>Prix au forfait</h3><p>Pas de facturation à la journée. Vous connaissez le coût avant de commencer.</p></li>
+        <li><h3>Code et documentation livrés</h3><p>Tout vous appartient. Vous n'êtes jamais prisonnier.</p></li>
       </ol>
     </div>
   </section>
 
-  <!-- 7. Qui -->
-  <section class="alt" id="about" aria-labelledby="about-title">
-    <div class="wrap">
-      <h2 id="about-title">Qui</h2>
-      <div class="who">
-        <!-- Pour une photo : remplacer ce bloc par
-             <img src="salem.jpg" alt="Salem Haddad" width="88" height="88" style="border-radius:50%"> -->
-        <div class="avatar" aria-hidden="true">SH</div>
-        <div>
-          <p><span class="name">Salem Haddad</span>, ingénieur en informatique. Huit ans à concevoir et exploiter des systèmes de données en environnement exigeant — banque de financement, industrie, plateformes d'échange inter-entreprises.</p>
-          <p class="links">
-            <a href="https://www.linkedin.com/in/VOTRE-PROFIL" rel="noopener">LinkedIn</a>
-            <a href="https://github.com/VOTRE-COMPTE" rel="noopener">GitHub</a>
-          </p>
-        </div>
+  <!-- Pourquoi -->
+  <section class="soft" id="about" aria-labelledby="about-title">
+    <div class="wrap why">
+      <div>
+        <p class="eyebrow">Le cabinet</p>
+        <h2 id="about-title">Pourquoi SSM Consulting</h2>
+        <p class="intro">Un cabinet d'ingénierie logicielle au service des PME&nbsp;: la rigueur des grands systèmes, à la taille de votre entreprise.</p>
       </div>
+      <ul class="why-list">
+        <li><span class="ico"><svg aria-hidden="true"><use href="#i-exp"/></svg></span><div><h3>Huit ans en environnements exigeants</h3><p>Banque de financement, industrie, plateformes d'échange inter-entreprises&nbsp;: des systèmes où une donnée fausse coûte cher.</p></div></li>
+        <li><span class="ico"><svg aria-hidden="true"><use href="#i-one"/></svg></span><div><h3>Un seul interlocuteur technique</h3><p>Celui qui analyse votre process est celui qui construit l'outil. Rien ne se perd en route.</p></div></li>
+        <li><span class="ico"><svg aria-hidden="true"><use href="#i-sme"/></svg></span><div><h3>Pensé pour les PME</h3><p>Des outils simples à prendre en main, dimensionnés pour votre équipe — pas pour un grand groupe.</p></div></li>
+      </ul>
     </div>
   </section>
 
-  <!-- 8. Appel final -->
-  <section class="final" id="contact" aria-labelledby="contact-title">
+  <!-- Appel final -->
+  <section id="contact" aria-labelledby="contact-title">
     <div class="wrap">
-      <h2 id="contact-title">Vous avez un process qui vous coûte des heures&nbsp;?</h2>
-      <p>20 minutes suffisent pour savoir si c'est réglable.</p>
-      <div class="contact">
-        <a class="btn btn-light" href="mailto:contact@ssm-consulting.example?subject=%C3%89change%20de%2020%20minutes&amp;body=Bonjour%20Salem%2C%0A%0AJe%20souhaiterais%20un%20%C3%A9change%20de%2020%20minutes%20au%20sujet%20de%20%3A%20%0A%0AMes%20disponibilit%C3%A9s%20%3A%20%0A">Réserver 20 minutes</a>
-        <span class="alt-contact">ou <a href="tel:+21600000000">+216&nbsp;00&nbsp;000&nbsp;000</a> · <a href="mailto:contact@ssm-consulting.example">contact@ssm-consulting.example</a></span>
+      <div class="cta">
+        <h2 id="contact-title">Vous avez un process qui vous coûte des heures&nbsp;?</h2>
+        <p>20 minutes suffisent pour savoir si c'est réglable.</p>
+        <a class="btn btn-white" href="mailto:salem.haddadbecha@gmail.com?subject=%C3%89change%20de%2020%20minutes%20%E2%80%94%20SSM%20Consulting&amp;body=Bonjour%2C%0A%0AJe%20souhaiterais%20un%20%C3%A9change%20de%2020%20minutes%20au%20sujet%20de%20%3A%20%0A%0A%0AEntreprise%20%3A%20%0AT%C3%A9l%C3%A9phone%20%3A%20%0AMes%20disponibilit%C3%A9s%20%3A%20%0A">Réserver 20 minutes <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+        <p class="reach">
+          <a href="tel:+33699225322"><svg aria-hidden="true"><use href="#i-phone"/></svg>+33&nbsp;6&nbsp;99&nbsp;22&nbsp;53&nbsp;22</a>
+          <a href="mailto:salem.haddadbecha@gmail.com"><svg aria-hidden="true"><use href="#i-mail"/></svg>Nous écrire</a>
+        </p>
       </div>
     </div>
   </section>
 
 </main>
 
-<!-- 9. Pied de page -->
 <footer>
   <div class="wrap">
-    <span>SSM Consulting · 2026</span>
+    <span class="logo">SSM&nbsp;<span class="sub">Consulting</span></span>
+    <span>© 2026 SSM Consulting</span>
     <details>
       <summary>Mentions légales</summary>
-      <p>Éditeur&nbsp;: SSM Consulting — [forme juridique, identifiant fiscal, adresse]. Responsable de la publication&nbsp;: Salem Haddad. Hébergement&nbsp;: [nom et adresse de l'hébergeur]. Contact&nbsp;: contact@ssm-consulting.example.</p>
+      <p>Éditeur&nbsp;: SSM Consulting — [forme juridique, identifiant, adresse]. Responsable de la publication&nbsp;: [à compléter]. Hébergement&nbsp;: Vercel Inc., 440 N Barranca Ave #4133, Covina, CA 91723, États-Unis.</p>
       <p>Ce site ne dépose aucun cookie et n'utilise aucun outil de mesure d'audience.</p>
     </details>
   </div>
