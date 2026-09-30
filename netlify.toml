@@ -1,0 +1,4 @@
+# Netlify : seul le dossier site/ est publié (l'étude audio-project/ ne l'est jamais).
+[build]
+  publish = "site"
+  command = ""

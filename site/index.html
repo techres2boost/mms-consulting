@@ -1,0 +1,322 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SSM Consulting — Logiciels métier sur mesure pour PME</title>
+<meta name="description" content="Quand un process important tourne encore sur Excel, des mails ou du papier, SSM Consulting construit l'outil qui le remplace — ou l'automatise. Web, mobile, automatisation, données, intégration.">
+<meta name="theme-color" content="#0B5577">
+<meta name="color-scheme" content="light">
+
+<!--
+  ════════════════════════════════════════════════════════════════════
+  À REMPLACER AVANT MISE EN LIGNE — tout est repérable par « example »,
+  « VOTRE- » ou « 00 000 000 » :
+    · https://ssm-consulting.example/      → votre domaine (canonical, og:url, og:image)
+    · contact@ssm-consulting.example       → votre adresse (3 occurrences : 2 liens + texte)
+    · +216 00 000 000                      → votre numéro (lien tel: + texte)
+    · https://stampi.example/              → site de Stampi
+    · linkedin.com/in/VOTRE-PROFIL         → votre profil LinkedIn
+    · github.com/VOTRE-COMPTE              → votre compte GitHub
+    · Mentions légales (pied de page)      → forme juridique, identifiant fiscal, hébergeur
+  ════════════════════════════════════════════════════════════════════
+-->
+<link rel="canonical" href="https://ssm-consulting.example/">
+<!-- Version anglaise : dupliquer ce fichier dans /en/index.html, puis décommenter :
+<link rel="alternate" hreflang="fr" href="https://ssm-consulting.example/">
+<link rel="alternate" hreflang="en" href="https://ssm-consulting.example/en/">
+<link rel="alternate" hreflang="x-default" href="https://ssm-consulting.example/">
+-->
+
+<!-- Aperçu lors du partage (WhatsApp, LinkedIn, e-mail) -->
+<meta property="og:type" content="website">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:site_name" content="SSM Consulting">
+<meta property="og:title" content="SSM Consulting — Le logiciel qui manque à votre métier">
+<meta property="og:description" content="Quand un process important tourne encore sur Excel, des mails ou du papier, on construit l'outil qui le remplace — ou on l'automatise.">
+<meta property="og:url" content="https://ssm-consulting.example/">
+<meta property="og:image" content="https://ssm-consulting.example/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="SSM Consulting — Le logiciel qui manque à votre métier">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230B5577'/%3E%3Ctext x='16' y='22.5' font-family='Arial,sans-serif' font-size='18' font-weight='700' fill='%23fff' text-anchor='middle'%3ES%3C/text%3E%3C/svg%3E">
+
+<style>
+  :root{
+    --brand:#0B5577;       /* couleur 1 : actions, liens      */
+    --brand-dark:#083E57;
+    --ink:#0F1B2A;         /* couleur 2 : titres, fond final  */
+    --text:#334155;
+    --muted:#5B6878;
+    --line:#E2E8F0;
+    --surface:#F6F8FA;
+    --tint:#EAF2F6;
+    --radius:10px;
+    --max:68rem;
+  }
+  *,*::before,*::after{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  @media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+       font-size:1.0625rem;line-height:1.6;color:var(--text);background:#fff}
+  h1,h2,h3{color:var(--ink);line-height:1.2;margin:0}
+  p{margin:0}
+  a{color:var(--brand)}
+  a:hover{color:var(--brand-dark)}
+  :focus-visible{outline:3px solid var(--brand);outline-offset:3px;border-radius:4px}
+  ul,ol{margin:0;padding:0;list-style:none}
+
+  .wrap{max-width:var(--max);margin:0 auto;padding:0 1.25rem}
+  .skip{position:absolute;left:-999px;top:0;background:var(--ink);color:#fff;padding:.6rem 1rem;z-index:10}
+  .skip:focus{left:1rem;top:1rem}
+
+  /* Boutons */
+  .btn{display:inline-block;background:var(--brand);color:#fff;text-decoration:none;font-weight:600;
+       padding:.85rem 1.4rem;border-radius:var(--radius);line-height:1.2;transition:background .15s}
+  .btn:hover{background:var(--brand-dark);color:#fff}
+  .btn-sm{padding:.55rem 1rem;font-size:.95rem}
+  .btn-light{background:#fff;color:var(--ink)}
+  .btn-light:hover{background:var(--tint);color:var(--ink)}
+
+  /* 1. En-tête */
+  .top{border-bottom:1px solid var(--line)}
+  .top .wrap{display:flex;align-items:center;justify-content:space-between;min-height:4rem;gap:1rem}
+  .logo{font-weight:700;font-size:1.125rem;color:var(--ink);text-decoration:none;letter-spacing:-.01em}
+
+  /* Sections */
+  section{padding:3.5rem 0}
+  .eyebrow{font-size:.8125rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--brand);margin-bottom:.6rem}
+  h2{font-size:clamp(1.5rem,4.2vw,2.125rem);letter-spacing:-.015em;margin-bottom:1.75rem;max-width:36rem}
+  h3{font-size:1.125rem}
+
+  /* 2. Hero */
+  .hero{padding:3.5rem 0 3rem}
+  .hero h1{font-size:clamp(2.1rem,7vw,3.5rem);letter-spacing:-.025em;max-width:16ch;margin-bottom:1.25rem}
+  .hero p{font-size:clamp(1.0625rem,2.4vw,1.25rem);max-width:38rem;margin-bottom:2rem}
+
+  /* 3. Phrases */
+  .alt{background:var(--surface)}
+  .quotes{display:grid;gap:.85rem;grid-template-columns:1fr}
+  .quotes li{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:1.1rem 1.2rem;
+             font-size:1.0625rem;font-weight:600;color:var(--ink)}
+  .close{margin-top:2rem;font-size:1.125rem;color:var(--ink);max-width:40rem}
+  .close strong{color:var(--brand)}
+
+  /* 4. Ce qu'on fait */
+  .services{display:grid;gap:1rem;grid-template-columns:1fr}
+  .services li{border-top:2px solid var(--ink);padding-top:1rem}
+  .services h3{margin-bottom:.4rem}
+  .services p{color:var(--muted)}
+
+  /* 5. Études de cas */
+  .cases{display:grid;gap:1.25rem;grid-template-columns:1fr}
+  .case{border:1px solid var(--line);border-radius:var(--radius);padding:1.5rem;background:#fff;display:flex;flex-direction:column}
+  .sector{font-size:.8125rem;color:var(--muted);margin-bottom:.5rem}
+  .case h3{font-size:clamp(1.25rem,3vw,1.5rem);margin-bottom:.75rem}
+  .case .ctx{margin-bottom:1.25rem}
+  .case h4{font-size:.8125rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ink);margin:0 0 .6rem}
+  .needs li{position:relative;padding-left:1.5rem;margin-bottom:.4rem}
+  .needs li::before{content:"";position:absolute;left:.1rem;top:.55em;width:.5rem;height:.5rem;border-radius:2px;background:var(--brand)}
+  .case .more{margin-top:auto;padding-top:1.25rem;font-size:.9375rem;color:var(--muted)}
+
+  /* 6. Méthode */
+  .steps{display:grid;gap:1.25rem;grid-template-columns:1fr;counter-reset:s}
+  .steps li{counter-increment:s;display:grid;grid-template-columns:2.5rem 1fr;gap:.9rem;align-items:start}
+  .steps li::before{content:counter(s);display:grid;place-items:center;width:2.25rem;height:2.25rem;border-radius:50%;
+                    background:var(--tint);color:var(--brand);font-weight:700}
+  .steps strong{color:var(--ink);display:block}
+
+  /* 7. Qui */
+  .who{display:grid;gap:1.25rem;grid-template-columns:1fr;align-items:center}
+  .avatar{width:5.5rem;height:5.5rem;border-radius:50%;background:var(--ink);color:#fff;display:grid;place-items:center;
+          font-size:1.75rem;font-weight:700;letter-spacing:.02em}
+  .who p{max-width:40rem}
+  .who .name{color:var(--ink);font-weight:700}
+  .links{display:flex;gap:1.25rem;margin-top:1rem;flex-wrap:wrap}
+  .links a{font-weight:600}
+
+  /* 8. Appel final */
+  .final{background:var(--ink);color:#DCE3EA;text-align:left}
+  .final h2{color:#fff;margin-bottom:.75rem}
+  .final p{font-size:1.125rem;margin-bottom:1.75rem}
+  .contact{display:flex;flex-direction:column;gap:.9rem;align-items:flex-start}
+  .contact .alt-contact{font-size:1rem}
+  .contact .alt-contact a{color:#fff}
+
+  /* 9. Pied de page */
+  footer{padding:2rem 0;font-size:.875rem;color:var(--muted)}
+  footer .wrap{display:flex;flex-direction:column;gap:.75rem}
+  details summary{cursor:pointer;color:var(--text)}
+  details p{margin-top:.6rem;max-width:44rem}
+
+  /* Tablette et plus */
+  @media (min-width:40rem){
+    .quotes{grid-template-columns:repeat(2,1fr)}
+    .services{grid-template-columns:repeat(2,1fr);gap:1.75rem 2rem}
+    .steps{grid-template-columns:repeat(2,1fr);gap:1.75rem 2rem}
+    .who{grid-template-columns:auto 1fr;gap:2rem}
+    .contact{flex-direction:row;align-items:center;gap:1.5rem}
+    footer .wrap{flex-direction:row;justify-content:space-between;align-items:flex-start}
+  }
+  @media (min-width:60rem){
+    section{padding:5rem 0}
+    .hero{padding:5.5rem 0 5rem}
+    .quotes{grid-template-columns:repeat(3,1fr)}
+    .services{grid-template-columns:repeat(3,1fr)}
+    .cases{grid-template-columns:repeat(2,1fr)}
+  }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Aller au contenu</a>
+
+<!-- 1. En-tête -->
+<header class="top">
+  <div class="wrap">
+    <a class="logo" href="#main">SSM Consulting</a>
+    <a class="btn btn-sm" href="#contact">Parlons-en</a>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- 2. Hero -->
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="wrap">
+      <h1 id="hero-title">Le logiciel qui manque à votre métier</h1>
+      <p>Quand un process important tourne encore sur Excel, des mails ou du papier, on construit l'outil qui le remplace — ou on l'automatise.</p>
+      <a class="btn" href="mailto:contact@ssm-consulting.example?subject=%C3%89change%20de%2020%20minutes&amp;body=Bonjour%20Salem%2C%0A%0AJe%20souhaiterais%20un%20%C3%A9change%20de%2020%20minutes%20au%20sujet%20de%20%3A%20%0A%0AMes%20disponibilit%C3%A9s%20%3A%20%0A">Réserver 20 minutes</a>
+    </div>
+  </section>
+
+  <!-- 3. Phrases -->
+  <section class="alt" id="problems" aria-labelledby="problems-title">
+    <div class="wrap">
+      <h2 id="problems-title">Vous reconnaissez une de ces phrases&nbsp;?</h2>
+      <ul class="quotes">
+        <li>«&nbsp;On gère tout sur Excel&nbsp;»</li>
+        <li>«&nbsp;Untel passe ses journées à recopier&nbsp;»</li>
+        <li>«&nbsp;On a acheté un logiciel, personne ne l'utilise&nbsp;»</li>
+        <li>«&nbsp;On met une semaine à sortir les chiffres&nbsp;»</li>
+        <li>«&nbsp;Il faut demander à X, c'est lui qui sait&nbsp;»</li>
+        <li>«&nbsp;Nos deux logiciels ne se parlent pas&nbsp;»</li>
+        <li>«&nbsp;On ne sait pas où on en est&nbsp;»</li>
+      </ul>
+      <p class="close">Chacune de ces phrases coûte des heures chaque mois. <strong>Aucune ne se voit dans les comptes.</strong></p>
+    </div>
+  </section>
+
+  <!-- 4. Ce qu'on fait -->
+  <section id="services" aria-labelledby="services-title">
+    <div class="wrap">
+      <h2 id="services-title">Ce qu'on fait</h2>
+      <ul class="services">
+        <li><h3>Automatiser un process manuel</h3><p>Supprimer les ressaisies, les relances et les fichiers partagés.</p></li>
+        <li><h3>Construire le logiciel métier qui n'existe pas</h3><p>Application web ou mobile, conçue pour votre façon de travailler.</p></li>
+        <li><h3>Mettre vos chiffres au clair</h3><p>Pipelines, tableaux de bord, KPI fiables et à jour.</p></li>
+        <li><h3>Faire parler vos systèmes entre eux</h3><p>ERP, EDI, API, portails clients et fournisseurs.</p></li>
+        <li><h3>Faire vivre ce qui tourne</h3><p>Supervision, corrections, évolutions.</p></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 5. Études de cas -->
+  <section class="alt" id="work" aria-labelledby="work-title">
+    <div class="wrap">
+      <h2 id="work-title">Ce qu'on a construit</h2>
+      <div class="cases">
+
+        <article class="case" aria-labelledby="case1-title">
+          <p class="sector">Contexte&nbsp;: restauration</p>
+          <h3 id="case1-title">Encaisser même quand le réseau tombe</h3>
+          <p class="ctx">Un système de caisse utilisé en plein service, sur plusieurs terminaux. Une coupure internet ne doit jamais interrompre une vente.</p>
+          <h4>Ce que ça a demandé</h4>
+          <ul class="needs">
+            <li>Fonctionnement hors ligne complet</li>
+            <li>Synchronisation entre plusieurs terminaux, avec résolution de conflits</li>
+            <li>Isolation des données par établissement</li>
+            <li>Application mobile et web sur une base commune</li>
+            <li>Journal d'audit inaltérable</li>
+          </ul>
+          <p class="more"><a href="https://res2boost.com" rel="noopener">res2boost.com</a></p>
+        </article>
+
+        <article class="case" aria-labelledby="case2-title">
+          <p class="sector">Contexte&nbsp;: restauration</p>
+          <h3 id="case2-title">Savoir qui sont ses meilleurs clients</h3>
+          <p class="ctx">Chaque passage en caisse laisse une trace, mais personne ne l'exploite. L'enjeu&nbsp;: transformer ces transactions en connaissance client exploitable.</p>
+          <h4>Ce que ça a demandé</h4>
+          <ul class="needs">
+            <li>Collecte et consolidation des données</li>
+            <li>Segmentation</li>
+            <li>Tableaux de bord</li>
+            <li>Campagnes automatisées</li>
+          </ul>
+          <p class="more"><a href="https://stampi.example/" rel="noopener">Voir Stampi</a></p>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. Méthode -->
+  <section id="method" aria-labelledby="method-title">
+    <div class="wrap">
+      <h2 id="method-title">Comment on travaille</h2>
+      <ol class="steps">
+        <li><div><strong>On commence par un diagnostic.</strong> Quelques jours à cartographier le process réel, et un plan chiffré. Même sans suite, vous repartez avec une vision claire.</div></li>
+        <li><div><strong>On livre par lots courts.</strong> Chaque lot est utilisable seul.</div></li>
+        <li><div><strong>Prix au forfait.</strong> Pas de facturation à la journée.</div></li>
+        <li><div><strong>Code et documentation livrés.</strong> Vous n'êtes jamais prisonnier.</div></li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- 7. Qui -->
+  <section class="alt" id="about" aria-labelledby="about-title">
+    <div class="wrap">
+      <h2 id="about-title">Qui</h2>
+      <div class="who">
+        <!-- Pour une photo : remplacer ce bloc par
+             <img src="salem.jpg" alt="Salem Haddad" width="88" height="88" style="border-radius:50%"> -->
+        <div class="avatar" aria-hidden="true">SH</div>
+        <div>
+          <p><span class="name">Salem Haddad</span>, ingénieur en informatique. Huit ans à concevoir et exploiter des systèmes de données en environnement exigeant — banque de financement, industrie, plateformes d'échange inter-entreprises.</p>
+          <p class="links">
+            <a href="https://www.linkedin.com/in/VOTRE-PROFIL" rel="noopener">LinkedIn</a>
+            <a href="https://github.com/VOTRE-COMPTE" rel="noopener">GitHub</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. Appel final -->
+  <section class="final" id="contact" aria-labelledby="contact-title">
+    <div class="wrap">
+      <h2 id="contact-title">Vous avez un process qui vous coûte des heures&nbsp;?</h2>
+      <p>20 minutes suffisent pour savoir si c'est réglable.</p>
+      <div class="contact">
+        <a class="btn btn-light" href="mailto:contact@ssm-consulting.example?subject=%C3%89change%20de%2020%20minutes&amp;body=Bonjour%20Salem%2C%0A%0AJe%20souhaiterais%20un%20%C3%A9change%20de%2020%20minutes%20au%20sujet%20de%20%3A%20%0A%0AMes%20disponibilit%C3%A9s%20%3A%20%0A">Réserver 20 minutes</a>
+        <span class="alt-contact">ou <a href="tel:+21600000000">+216&nbsp;00&nbsp;000&nbsp;000</a> · <a href="mailto:contact@ssm-consulting.example">contact@ssm-consulting.example</a></span>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- 9. Pied de page -->
+<footer>
+  <div class="wrap">
+    <span>SSM Consulting · 2026</span>
+    <details>
+      <summary>Mentions légales</summary>
+      <p>Éditeur&nbsp;: SSM Consulting — [forme juridique, identifiant fiscal, adresse]. Responsable de la publication&nbsp;: Salem Haddad. Hébergement&nbsp;: [nom et adresse de l'hébergeur]. Contact&nbsp;: contact@ssm-consulting.example.</p>
+      <p>Ce site ne dépose aucun cookie et n'utilise aucun outil de mesure d'audience.</p>
+    </details>
+  </div>
+</footer>
+</body>
+</html>
