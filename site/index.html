@@ -4,20 +4,18 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>SSM Consulting — Logiciels métier sur mesure pour PME</title>
-<meta name="description" content="Quand un process important tourne encore sur Excel, des mails ou du papier, SSM Consulting construit l'outil qui le remplace — ou l'automatise.">
+<meta name="description" content="Quand un process important tourne encore sur Excel, des mails ou du papier, SSM Consulting construit l'outil qui le remplace — ou l'automatise. Logiciel métier, données, cloud (Azure, AWS, Google Cloud) et mise en production.">
 <meta name="theme-color" content="#0A0E1A">
 
 <!--
-  À REMPLACER avant diffusion :
-  - https://ssm-consulting.example/  → adresse réelle du site (canonical + Open Graph)
-  - https://stampi.example/          → lien réel vers Stampi
-  - Mentions légales (pied de page)  → forme juridique, identifiant, adresse, responsable de publication, hébergeur
+  Adresse du site : https://ssm-consulting.vercel.app/ (canonical + Open Graph).
+  En cas de nom de domaine propre, remplacer cette adresse partout dans ce fichier.
 -->
-<link rel="canonical" href="https://ssm-consulting.example/">
+<link rel="canonical" href="https://ssm-consulting.vercel.app/">
 <!-- Version anglaise (quand /en/index.html existera) :
-<link rel="alternate" hreflang="fr" href="https://ssm-consulting.example/">
-<link rel="alternate" hreflang="en" href="https://ssm-consulting.example/en/">
-<link rel="alternate" hreflang="x-default" href="https://ssm-consulting.example/">
+<link rel="alternate" hreflang="fr" href="https://ssm-consulting.vercel.app/">
+<link rel="alternate" hreflang="en" href="https://ssm-consulting.vercel.app/en/">
+<link rel="alternate" hreflang="x-default" href="https://ssm-consulting.vercel.app/">
 -->
 
 <meta property="og:type" content="website">
@@ -25,8 +23,8 @@
 <meta property="og:site_name" content="SSM Consulting">
 <meta property="og:title" content="SSM Consulting — Le logiciel qui manque à votre métier">
 <meta property="og:description" content="Excel, mails, papier : on construit l'outil qui les remplace — ou on l'automatise. 20 minutes pour savoir si c'est réglable.">
-<meta property="og:url" content="https://ssm-consulting.example/">
-<meta property="og:image" content="https://ssm-consulting.example/og-image.png">
+<meta property="og:url" content="https://ssm-consulting.vercel.app/">
+<meta property="og:image" content="https://ssm-consulting.vercel.app/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="SSM Consulting — Le logiciel qui manque à votre métier">
@@ -221,12 +219,7 @@
   .reach svg{width:1.05rem;height:1.05rem;color:var(--c2-l)}
 
   /* Pied de page */
-  footer{padding:2.5rem 0 3rem;font-size:.875rem;color:var(--muted);border-top:1px solid var(--line)}
-  footer .wrap{display:flex;flex-direction:column;gap:1rem}
-  footer .logo{color:var(--head);font-size:1rem}
-  footer .logo .sub{color:var(--muted)}
-  details summary{cursor:pointer;color:var(--text);font-weight:600}
-  details p{margin-top:.6rem;max-width:46rem}
+  footer{padding:2rem 0 2.5rem;font-size:.875rem;color:var(--muted);text-align:center}
 
   /* Animation d'entrée (désactivée si l'utilisateur réduit les animations) */
   @media (prefers-reduced-motion:no-preference){
@@ -242,7 +235,6 @@
     .services .svc:last-child{grid-column:1/-1}
     .steps{grid-template-columns:repeat(2,1fr)}
     .cta{padding:4.5rem 3rem}
-    footer .wrap{flex-direction:row;justify-content:space-between;align-items:flex-start}
   }
   /* Bureau */
   @media (min-width:60rem){
@@ -255,7 +247,7 @@
     .services{grid-template-columns:repeat(6,1fr)}
     .services .svc{grid-column:span 2}
     .services .svc:nth-child(-n+2){grid-column:span 3}
-    .services .svc:last-child{grid-column:span 2}
+    .services .svc:nth-child(n+6){grid-column:span 3}
     .cases{grid-template-columns:repeat(2,1fr);gap:1.5rem}
     .case{padding:2.5rem 2.25rem}
     .steps{grid-template-columns:repeat(4,1fr)}
@@ -279,6 +271,8 @@
   <symbol id="i-data" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></symbol>
   <symbol id="i-link" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 14a4.5 4.5 0 0 0 6.4 0l3.2-3.2a4.5 4.5 0 0 0-6.4-6.4L12 5.6"/><path d="M14 10a4.5 4.5 0 0 0-6.4 0l-3.2 3.2a4.5 4.5 0 0 0 6.4 6.4l1.2-1.2"/></symbol>
   <symbol id="i-care" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 4 6v6c0 4.5 3.4 8 8 9 4.6-1 8-4.5 8-9V6l-8-3z"/><path d="m8.5 12 2.5 2.5 4.5-5"/></symbol>
+  <symbol id="i-cloud" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.5 19H7a5 5 0 1 1 1-9.9A6 6 0 0 1 19.5 11 4 4 0 0 1 17.5 19z"/></symbol>
+  <symbol id="i-rocket" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 15c-1.5 1.3-2 5-2 5s3.7-.5 5-2c.7-.8.7-2.1-.1-2.9a2.2 2.2 0 0 0-2.9-.1z"/><path d="m12 15-3-3a22 22 0 0 1 2-4A12.9 12.9 0 0 1 22 2c0 2.7-.8 7.5-6 11a22 22 0 0 1-4 2z"/><path d="M9 12H4s.6-3 2-4c1.6-1.1 5 0 5 0M12 15v5s3-.6 4-2c1.1-1.6 0-5 0-5"/></symbol>
   <symbol id="i-offline" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 8.8a15 15 0 0 1 4.2-2.6M10.6 5.1A15 15 0 0 1 22 8.8M5 12.9a10 10 0 0 1 4-2.3M15.3 10.8A10 10 0 0 1 19 12.9M8.5 16.4a5 5 0 0 1 7 0M12 20h.01M3 3l18 18"/></symbol>
   <symbol id="i-users" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0M16 4.6a3.5 3.5 0 0 1 0 6.8M21.5 20a6.5 6.5 0 0 0-4-6"/></symbol>
   <symbol id="i-exp" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 3 7l9 5 9-5-9-5zM3 12l9 5 9-5M3 17l9 5 9-5"/></symbol>
@@ -309,7 +303,7 @@
   <section class="hero" aria-labelledby="hero-title">
     <div class="wrap">
       <div>
-        <p class="pill rise"><span class="dot" aria-hidden="true"></span>Logiciel métier · Automatisation · Données</p>
+        <p class="pill rise"><span class="dot" aria-hidden="true"></span>Logiciel métier · Données · Cloud</p>
         <h1 id="hero-title" class="rise d1">Le logiciel qui manque à <span class="grad">votre métier</span></h1>
         <p class="lead rise d2">Quand un process important tourne encore sur Excel, des mails ou du papier, on construit l'outil qui le remplace — ou on l'automatise.</p>
         <div class="actions rise d3">
@@ -372,7 +366,7 @@
       <div class="head">
         <p class="eyebrow">Nos services</p>
         <h2 id="services-title">Ce qu'on fait</h2>
-        <p class="intro">Cinq façons de récupérer ces heures — du premier diagnostic à l'outil qui tourne au quotidien.</p>
+        <p class="intro">Sept façons de récupérer ces heures — du premier diagnostic à l'application qui tourne en production, dans le cloud.</p>
       </div>
       <ul class="services">
         <li class="svc">
@@ -404,7 +398,21 @@
           <ul class="tags"><li>ERP</li><li>EDI</li><li>API</li><li>Portails clients &amp; fournisseurs</li></ul>
         </li>
         <li class="svc">
-          <div class="svc-top"><span class="ico"><svg aria-hidden="true"><use href="#i-care"/></svg></span><span class="num">05</span></div>
+          <div class="svc-top"><span class="ico"><svg aria-hidden="true"><use href="#i-cloud"/></svg></span><span class="num">05</span></div>
+          <h3>Mettre en place votre architecture cloud</h3>
+          <p>Azure, AWS ou Google Cloud&nbsp;: une infrastructure sécurisée, dimensionnée pour votre usage — et pour votre budget.</p>
+          <p class="when"><b>Quand</b> «&nbsp;le serveur est dans un placard et personne n'ose y toucher&nbsp;».</p>
+          <ul class="tags"><li>Azure</li><li>AWS</li><li>Google Cloud</li><li>Réseau &amp; sécurité</li><li>Infrastructure as Code</li><li>Maîtrise des coûts</li></ul>
+        </li>
+        <li class="svc">
+          <div class="svc-top"><span class="ico"><svg aria-hidden="true"><use href="#i-rocket"/></svg></span><span class="num">06</span></div>
+          <h3>Déployer vos applications en production</h3>
+          <p>Des mises en ligne automatisées, testées et réversibles — sans coupure pour vos utilisateurs.</p>
+          <p class="when"><b>Quand</b> «&nbsp;à chaque mise à jour, on croise les doigts&nbsp;».</p>
+          <ul class="tags"><li>CI/CD</li><li>Docker &amp; Kubernetes</li><li>Déploiement sans coupure</li><li>Retour arrière</li></ul>
+        </li>
+        <li class="svc">
+          <div class="svc-top"><span class="ico"><svg aria-hidden="true"><use href="#i-care"/></svg></span><span class="num">07</span></div>
           <h3>Faire vivre ce qui tourne</h3>
           <p>L'outil reste fiable, documenté et à jour — même quand l'équipe change.</p>
           <p class="when"><b>Quand</b> «&nbsp;il faut demander à X, c'est lui qui sait&nbsp;».</p>
@@ -451,7 +459,7 @@
             <li>Tableaux de bord</li>
             <li>Campagnes automatisées</li>
           </ul>
-          <p class="more"><a href="https://stampi.example/" rel="noopener">Voir Stampi <svg aria-hidden="true"><use href="#i-out"/></svg></a></p>
+          <p class="more"><a href="https://stampi.res2boost.com/" rel="noopener">Voir Stampi <svg aria-hidden="true"><use href="#i-out"/></svg></a></p>
         </article>
 
       </div>
@@ -508,15 +516,7 @@
 </main>
 
 <footer>
-  <div class="wrap">
-    <span class="logo">SSM&nbsp;<span class="sub">Consulting</span></span>
-    <span>© 2026 SSM Consulting</span>
-    <details>
-      <summary>Mentions légales</summary>
-      <p>Éditeur&nbsp;: SSM Consulting — [forme juridique, identifiant, adresse]. Responsable de la publication&nbsp;: [à compléter]. Hébergement&nbsp;: Vercel Inc., 440 N Barranca Ave #4133, Covina, CA 91723, États-Unis.</p>
-      <p>Ce site ne dépose aucun cookie et n'utilise aucun outil de mesure d'audience.</p>
-    </details>
-  </div>
+  <div class="wrap">© 2026 SSM Consulting</div>
 </footer>
 </body>
 </html>

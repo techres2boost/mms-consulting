@@ -12,8 +12,7 @@ Ce dépôt contient deux choses distinctes :
 - Un seul fichier HTML, CSS inline, **aucun JavaScript**, aucun framework, aucun build, aucun traceur.
 - Police Plus Jakarta Sans auto-hébergée (`site/fonts/`, licence SIL OFL) : aucune requête vers un tiers.
 - Déploiement : le dossier de publication est `site/` (déjà configuré dans `netlify.toml` et `vercel.json`).
-- Avant la mise en ligne, remplacer les valeurs d'exemple listées en tête de `site/index.html`
-  (domaine `ssm-consulting.example`, lien Stampi, mentions légales).
+- Adresse du site : https://ssm-consulting.vercel.app/ (canonical et Open Graph dans `site/index.html`).
 
 ## Déploiement
 
