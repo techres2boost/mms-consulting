@@ -1,10 +1,10 @@
-# SSM Consulting
+# Afaqus
 
 Ce dépôt contient deux choses distinctes :
 
 | Dossier | Contenu | Publié sur le web ? |
 |---|---|---|
-| [`site/`](site/) | Site vitrine SSM Consulting — une page statique (`index.html`), image de partage, en-têtes HTTP | **Oui** — c'est le seul dossier déployé |
+| [`site/`](site/) | Site vitrine Afaqus — une page statique (`index.html`), image de partage, en-têtes HTTP | **Oui** — c'est le seul dossier déployé |
 | [`audio-project/`](audio-project/) | Étude technique « Call Com » (publicité audio pendant l'appel) : docs, migrations SQL, présentations, devis, PDF | **Non** — document client, jamais servi par le site |
 
 ## Site vitrine
@@ -12,7 +12,7 @@ Ce dépôt contient deux choses distinctes :
 - Un seul fichier HTML, CSS inline, **aucun JavaScript**, aucun framework, aucun build, aucun traceur.
 - Police Plus Jakarta Sans auto-hébergée (`site/fonts/`, licence SIL OFL) : aucune requête vers un tiers.
 - Déploiement : le dossier de publication est `site/` (déjà configuré dans `netlify.toml` et `vercel.json`).
-- Adresse du site : https://ssm-consulting.vercel.app/ (canonical et Open Graph dans `site/index.html`).
+- Adresse du site : https://afaqus.com/ (canonical et Open Graph dans `site/index.html`).
 
 ## Déploiement
 
