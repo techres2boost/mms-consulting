@@ -1,0 +1,598 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Stampi : application de fidélité pour restaurants — étude de cas Afaqus</title>
+<meta name="description" content="Étude de cas : comment Afaqus a conçu Stampi, l'application de fidélité multi-restaurants (web, iOS, Android) — carte QR, tableau de bord, relances.">
+<meta name="theme-color" content="#0A0E1A">
+<link rel="canonical" href="https://afaqus.com/stampi/">
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:site_name" content="Afaqus">
+<meta property="og:title" content="Stampi — une carte de fidélité unique pour tous les restaurants">
+<meta property="og:description" content="Étude de cas Afaqus : problème, fonctionnalités, architecture et choix techniques derrière l'application de fidélité Stampi.">
+<meta property="og:url" content="https://afaqus.com/stampi/">
+<meta property="og:image" content="https://afaqus.com/stampi/og-stampi.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Écrans de l'application Stampi : carte de fidélité et tableau de bord restaurant">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2032%2032%27%3E%3Cdefs%3E%3ClinearGradient%20id%3D%27g%27%20x1%3D%270%27%20y1%3D%270%27%20x2%3D%271%27%20y2%3D%271%27%3E%3Cstop%20offset%3D%270%27%20stop-color%3D%27%236366F1%27%2F%3E%3Cstop%20offset%3D%271%27%20stop-color%3D%27%2306B6D4%27%2F%3E%3C%2FlinearGradient%3E%3C%2Fdefs%3E%3Crect%20width%3D%2732%27%20height%3D%2732%27%20rx%3D%278%27%20fill%3D%27url%28%23g%29%27%2F%3E%3Ccircle%20cx%3D%2716%27%20cy%3D%2713.5%27%20r%3D%274%27%20fill%3D%27none%27%20stroke%3D%27%23fff%27%20stroke-width%3D%272.4%27%2F%3E%3Cpath%20d%3D%27M6%2021h20M10%2024.5h12%27%20fill%3D%27none%27%20stroke%3D%27%23fff%27%20stroke-width%3D%272.4%27%20stroke-linecap%3D%27round%27%2F%3E%3C%2Fsvg%3E">
+<link rel="preload" href="/fonts/plus-jakarta-sans.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/stampi/stampi-cartes.jpg" as="image">
+
+<!-- Données structurées (lues par les moteurs de recherche, jamais exécutées) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Article",
+      "headline": "Stampi : une carte de fidélité unique pour tous les restaurants — étude de cas",
+      "description": "Comment Afaqus a conçu et développé Stampi, l'application de fidélité multi-restaurants : problème, fonctionnalités, architecture et choix techniques.",
+      "image": "https://afaqus.com/stampi/og-stampi.png",
+      "datePublished": "2026-11-13",
+      "dateModified": "2026-11-13",
+      "inLanguage": "fr",
+      "mainEntityOfPage": "https://afaqus.com/stampi/",
+      "author": { "@type": "Organization", "name": "Afaqus", "url": "https://afaqus.com/" },
+      "publisher": { "@type": "Organization", "name": "Afaqus", "url": "https://afaqus.com/" },
+      "about": { "@id": "https://stampi.res2boost.com/#app" }
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://stampi.res2boost.com/#app",
+      "name": "Stampi",
+      "url": "https://stampi.res2boost.com/",
+      "applicationCategory": "BusinessApplication",
+      "operatingSystem": "Web, iOS, Android",
+      "description": "Application de fidélité pour restaurants : une seule carte à tampons QR pour tous les restaurants partenaires.",
+      "creator": { "@type": "Organization", "name": "Afaqus", "url": "https://afaqus.com/" }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://afaqus.com/" },
+        { "@type": "ListItem", "position": 2, "name": "Réalisations", "item": "https://afaqus.com/#work" },
+        { "@type": "ListItem", "position": 3, "name": "Stampi", "item": "https://afaqus.com/stampi/" }
+      ]
+    }
+  ]
+}
+</script>
+
+<style>
+  @font-face{font-family:"Jakarta";src:url(/fonts/plus-jakarta-sans.woff2) format("woff2");font-weight:200 800;font-display:swap}
+  :root{
+    --c1:#4F46E5;  --c1-l:#A5B4FC;
+    --c2:#0E7490;  --c2-l:#22D3EE;
+    --grad:linear-gradient(120deg,#4F46E5 0%,#0E7490 100%);
+    --grad-l:linear-gradient(100deg,#A5B4FC 0%,#67E8F9 100%);
+    --ink:#0A0E1A; --ink-2:#121829;
+    --head:#0B1224; --text:#3B4556; --muted:#5E6A7D;
+    --line:#E6E8EF; --soft:#F5F6FA;
+    --r:16px; --max:72rem;
+  }
+  *,*::before,*::after{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  @media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+  body{margin:0;font-family:Jakarta,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+       font-size:1.0625rem;line-height:1.65;color:var(--text);background:#fff;-webkit-font-smoothing:antialiased;word-spacing:.04em}
+  h1,h2,h3,h4{color:var(--head);line-height:1.15;margin:0;letter-spacing:-.025em;word-spacing:normal;text-wrap:balance}
+  p{margin:0} ul,ol{margin:0;padding:0;list-style:none}
+  a{color:var(--c1)}
+  img{max-width:100%;height:auto}
+  :focus-visible{outline:3px solid var(--c2-l);outline-offset:3px;border-radius:6px}
+  .wrap{max-width:var(--max);margin:0 auto;padding:0 1.25rem}
+  .skip{position:absolute;left:-999px;top:0;background:#fff;color:var(--ink);padding:.6rem 1rem;z-index:50;border-radius:8px}
+  .skip:focus{left:1rem;top:1rem}
+
+  /* Boutons (identiques à l'accueil) */
+  .btn{display:inline-flex;align-items:center;gap:.55rem;background:var(--grad);color:#fff;text-decoration:none;font-weight:700;
+       padding:.95rem 1.5rem;border-radius:999px;line-height:1.2;box-shadow:0 10px 30px -10px rgba(79,70,229,.7);
+       transition:transform .2s,box-shadow .2s}
+  .btn:hover{transform:translateY(-2px);box-shadow:0 16px 36px -12px rgba(79,70,229,.85)}
+  .btn svg{width:1.05em;height:1.05em;transition:transform .2s}
+  .btn:hover svg{transform:translateX(3px)}
+  .btn-sm{padding:.6rem 1.1rem;font-size:.9375rem;box-shadow:none}
+  .btn-white{background:#fff;color:var(--ink);box-shadow:0 10px 30px -10px rgba(0,0,0,.5)}
+  .ghost{display:inline-flex;align-items:center;gap:.4rem;color:#E2E8F0;font-weight:600;text-decoration:none;padding:.95rem .25rem;border-bottom:1px solid transparent}
+  .ghost:hover{border-color:#E2E8F0}
+  .ghost svg{width:.95rem;height:.95rem}
+
+  /* En-tête */
+  .top{position:sticky;top:0;z-index:40;background:rgba(10,14,26,.82);backdrop-filter:saturate(160%) blur(14px);
+       -webkit-backdrop-filter:saturate(160%) blur(14px);border-bottom:1px solid rgba(255,255,255,.07)}
+  .top .wrap{display:flex;align-items:center;justify-content:space-between;min-height:4.25rem;gap:1rem}
+  .logo{display:inline-flex;align-items:center;gap:.6rem;font-weight:800;font-size:1.125rem;color:#fff;text-decoration:none;letter-spacing:-.02em}
+  .mark{width:2rem;height:2rem;flex:none}
+  .nav{display:none;gap:2rem}
+  .nav a{color:#CBD5E1;text-decoration:none;font-size:.9375rem;font-weight:500}
+  .nav a:hover,.nav a[aria-current]{color:#fff}
+
+  /* Hero */
+  .hero{position:relative;overflow:hidden;background:var(--ink);color:#CBD5E1;padding:2.25rem 0 4rem}
+  .hero::before{content:"";position:absolute;inset:0;pointer-events:none;
+    background:radial-gradient(40rem 26rem at 85% 10%,rgba(99,102,241,.35),transparent 60%),
+               radial-gradient(34rem 24rem at 5% 100%,rgba(6,182,212,.22),transparent 60%)}
+  .hero::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.5;
+    background-image:linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px);
+    background-size:3.5rem 3.5rem;-webkit-mask-image:radial-gradient(ellipse at 50% 30%,#000 20%,transparent 75%);mask-image:radial-gradient(ellipse at 50% 30%,#000 20%,transparent 75%)}
+  .hero .wrap{position:relative;z-index:1}
+  .crumbs{display:flex;flex-wrap:wrap;gap:.4rem;font-size:.8125rem;color:#94A3B8;margin-bottom:2rem}
+  .crumbs a{color:#CBD5E1;text-decoration:none}
+  .crumbs a:hover{text-decoration:underline}
+  .crumbs li+li::before{content:"/";margin-right:.4rem;color:#64748B}
+  .hero-grid{display:grid;gap:3rem;align-items:center}
+  .pill{display:inline-flex;align-items:center;gap:.55rem;font-size:.8125rem;font-weight:600;color:#E2E8F0;
+        border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.05);padding:.4rem .85rem;border-radius:999px;margin-bottom:1.5rem}
+  .dot{width:.5rem;height:.5rem;border-radius:50%;background:var(--c2-l);box-shadow:0 0 0 4px rgba(34,211,238,.18)}
+  .hero h1{color:#fff;font-size:clamp(2.2rem,7vw,3.75rem);font-weight:800;letter-spacing:-.04em;line-height:1.05;margin-bottom:1.4rem}
+  .grad{background:var(--grad-l);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .lead{font-size:clamp(1.0625rem,2.4vw,1.2rem);max-width:36rem;margin-bottom:2.25rem;color:#CBD5E1}
+  .actions{display:flex;flex-wrap:wrap;align-items:center;gap:.75rem 1.5rem}
+
+  /* Téléphones */
+  .phone{position:relative;border-radius:2.5rem;padding:.5rem;background:linear-gradient(160deg,#1E2540,#0B1224);
+         box-shadow:0 0 0 1px rgba(255,255,255,.1),0 40px 80px -30px rgba(0,0,0,.85)}
+  .phone img{display:block;width:100%;height:auto;aspect-ratio:390/844;border-radius:2.05rem;background:#F4EFE4}
+  .duo{position:relative;display:flex;justify-content:center;align-items:flex-start;max-width:30rem;width:100%;justify-self:center;padding-bottom:1.5rem}
+  .duo .phone{width:52%}
+  .duo .phone:first-child{transform:rotate(-4deg) translateX(6%);z-index:2}
+  .duo .phone:last-child{transform:rotate(4deg) translate(-6%,2.25rem);opacity:.96}
+  .toast{position:absolute;z-index:3;display:flex;align-items:center;gap:.55rem;font-size:.8125rem;font-weight:600;color:var(--head);
+         background:#fff;border-radius:12px;padding:.6rem .85rem;box-shadow:0 20px 40px -15px rgba(0,0,0,.6)}
+  .toast svg{width:1.1rem;height:1.1rem;color:#0E7490;flex:none}
+  .t1{left:0;bottom:2.5rem}
+
+  /* Fiche projet */
+  .facts{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;margin-top:3rem;border-radius:var(--r);overflow:hidden;
+         border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.1)}
+  .facts div{background:#0F1424;padding:1rem 1.1rem}
+  .facts dt{font-size:.75rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#94A3B8}
+  .facts dd{margin:.3rem 0 0;color:#fff;font-weight:600;font-size:.9375rem;line-height:1.4}
+  dl{margin:0}
+
+  /* Sections */
+  section{padding:4.5rem 0;scroll-margin-top:4rem}
+  .eyebrow{display:inline-block;font-size:.8125rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--c1);margin-bottom:.85rem}
+  h2{font-size:clamp(1.85rem,5vw,2.75rem);font-weight:800;max-width:40rem}
+  .intro{max-width:40rem;margin-top:1rem;font-size:1.125rem;color:var(--muted)}
+  .head{margin-bottom:2.75rem}
+  .soft{background:var(--soft)}
+  .prose{max-width:42rem}
+  .prose p+p{margin-top:1rem}
+  .prose strong{color:var(--head)}
+
+  /* Cartes génériques */
+  .grid3{display:grid;gap:1rem;grid-template-columns:1fr}
+  .box{border:1px solid var(--line);border-radius:var(--r);padding:1.6rem 1.5rem;background:#fff;transition:transform .2s,box-shadow .2s,border-color .2s}
+  .box:hover{transform:translateY(-3px);border-color:#C7D2FE;box-shadow:0 24px 50px -30px rgba(15,23,42,.35)}
+  .box h3{font-size:1.15rem;font-weight:800;margin:1rem 0 .45rem}
+  .box p{color:var(--muted);font-size:1rem}
+  .ico{display:grid;place-items:center;width:2.75rem;height:2.75rem;border-radius:12px;background:var(--grad);color:#fff;box-shadow:0 10px 24px -10px rgba(79,70,229,.8)}
+  .ico svg{width:1.3rem;height:1.3rem}
+
+  /* Solution */
+  .solution{display:grid;gap:2rem;align-items:center}
+  .big{font-size:clamp(1.35rem,3.4vw,1.85rem);font-weight:800;color:var(--head);line-height:1.3;letter-spacing:-.02em}
+  .big .grad2{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .deliv{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1.5rem}
+  .deliv li{font-size:.875rem;font-weight:600;color:var(--head);border:1px solid var(--line);border-radius:999px;padding:.35rem .8rem;background:#fff}
+
+  /* Galerie */
+  .gallery{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(13.5rem,72%);gap:1.25rem;overflow-x:auto;
+           scroll-snap-type:x mandatory;padding:.5rem .25rem 1.5rem;-webkit-overflow-scrolling:touch;scrollbar-width:thin}
+  .gallery figure{margin:0;scroll-snap-align:start}
+  .gallery figcaption{margin-top:1rem;font-size:.9375rem;color:var(--muted);line-height:1.5}
+  .gallery figcaption b{display:block;color:var(--head);font-size:1rem}
+  .note{font-size:.8125rem;color:var(--muted);margin-top:.5rem}
+  .dark-g{background:var(--ink);color:#CBD5E1;position:relative;overflow:hidden}
+  .dark-g::before{content:"";position:absolute;inset:0;background:radial-gradient(36rem 22rem at 100% 0,rgba(99,102,241,.25),transparent 60%);pointer-events:none}
+  .dark-g .wrap{position:relative}
+  .dark-g h2{color:#fff}
+  .dark-g .eyebrow{color:var(--c2-l)}
+  .dark-g .intro{color:#94A3B8}
+  .dark-g figcaption{color:#94A3B8}
+  .dark-g figcaption b{color:#fff}
+  .dark-g .note{color:#94A3B8}
+
+  /* Fonctionnalités */
+  .feat{display:grid;gap:1rem;grid-template-columns:1fr}
+  .feat-col{border:1px solid var(--line);border-radius:20px;padding:1.75rem 1.5rem;background:#fff}
+  .feat-col h3{display:flex;align-items:center;gap:.75rem;font-size:1.25rem;font-weight:800;margin-bottom:1.25rem}
+  .checks{display:grid;gap:.9rem}
+  .checks li{display:grid;grid-template-columns:auto 1fr;gap:.7rem;align-items:start;font-size:1rem}
+  .checks li>svg{width:1.15rem;height:1.15rem;color:var(--c2);margin-top:.25rem}
+  .checks b{color:var(--head);font-weight:700}
+
+  /* Étapes */
+  .steps{display:grid;gap:1rem;grid-template-columns:1fr;counter-reset:s}
+  .steps li{counter-increment:s;position:relative;padding:1.6rem 1.4rem;border-radius:var(--r);border:1px solid var(--line);background:#fff}
+  .steps li::before{content:"0" counter(s);display:block;font-size:2.25rem;font-weight:800;letter-spacing:-.04em;line-height:1;margin-bottom:.9rem;
+                    background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .steps h3{font-size:1.1rem;font-weight:800;margin-bottom:.35rem}
+  .steps p{color:var(--muted);font-size:.975rem}
+
+  /* Architecture */
+  .arch{display:grid;gap:.75rem}
+  .layer{border-radius:var(--r);border:1px solid rgba(255,255,255,.1);background:linear-gradient(180deg,rgba(255,255,255,.07),rgba(255,255,255,.025));padding:1.2rem 1.25rem}
+  .layer h3{font-size:.75rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#94A3B8;margin-bottom:.8rem}
+  .nodes{display:grid;gap:.6rem;grid-template-columns:1fr}
+  .node{border-radius:12px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);padding:.8rem .9rem}
+  .node b{display:block;color:#fff;font-size:.975rem}
+  .node span{display:block;font-size:.875rem;color:#94A3B8;line-height:1.45;margin-top:.15rem}
+  .flow{display:flex;justify-content:center;color:var(--c2-l)}
+  .flow svg{width:1.4rem;height:1.4rem}
+  .arch-notes{display:grid;gap:1rem;margin-top:2.5rem}
+  .arch-notes li{display:grid;grid-template-columns:auto 1fr;gap:.85rem;align-items:start}
+  .arch-notes .ico{width:2.4rem;height:2.4rem;border-radius:10px}
+  .arch-notes h3{color:#fff;font-size:1.05rem;font-weight:800;margin-bottom:.2rem}
+  .arch-notes p{color:#94A3B8;font-size:.975rem}
+
+  /* Défis */
+  .chal{display:grid;gap:1rem;grid-template-columns:1fr}
+  .chal article{border:1px solid var(--line);border-radius:20px;padding:1.75rem 1.5rem;background:#fff}
+  .chal h3{font-size:1.2rem;font-weight:800;margin-bottom:1rem}
+  .chal h4{font-size:.75rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--c1);margin:1rem 0 .3rem}
+  .chal h4:first-of-type{margin-top:0}
+  .chal p{color:var(--muted);font-size:1rem}
+  .tags{display:flex;flex-wrap:wrap;gap:.45rem;margin-top:2rem}
+  .tags li{font-size:.8125rem;font-weight:600;color:var(--head);border:1px solid var(--line);border-radius:999px;padding:.3rem .7rem;background:#fff}
+
+  /* Bénéfices */
+  .gains{display:grid;gap:1rem;grid-template-columns:1fr}
+  .gain{border-radius:var(--r);padding:1.5rem;background:#fff;border:1px solid var(--line)}
+  .gain strong{display:block;font-size:1.15rem;color:var(--head);margin-bottom:.35rem;letter-spacing:-.01em}
+  .gain p{color:var(--muted);font-size:1rem}
+
+  /* Lire aussi */
+  .read{display:grid;gap:1rem;align-items:center;border:1px solid var(--line);border-radius:20px;padding:1.75rem 1.5rem;background:var(--soft);text-decoration:none;color:inherit;transition:border-color .2s,box-shadow .2s}
+  .read:hover{border-color:#C7D2FE;box-shadow:0 24px 50px -30px rgba(15,23,42,.35)}
+  .read small{font-size:.8125rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--c1)}
+  .read h3{font-size:1.35rem;font-weight:800;margin:.4rem 0}
+  .read p{color:var(--muted)}
+  .read .go{display:inline-flex;align-items:center;gap:.4rem;font-weight:700;color:var(--c1)}
+  .read .go svg{width:1rem;height:1rem}
+
+  /* Appel final */
+  .cta{position:relative;overflow:hidden;border-radius:28px;padding:3rem 1.5rem;background:var(--ink);color:#CBD5E1;text-align:center}
+  .cta::before{content:"";position:absolute;inset:0;pointer-events:none;
+    background:radial-gradient(30rem 18rem at 15% 0,rgba(99,102,241,.5),transparent 60%),radial-gradient(28rem 18rem at 90% 100%,rgba(6,182,212,.4),transparent 60%)}
+  .cta>*{position:relative}
+  .cta h2{color:#fff;margin:0 auto 1rem;max-width:36rem}
+  .cta>p{font-size:1.1875rem;margin:0 auto 2rem;max-width:34rem}
+  .reach{display:flex;flex-wrap:wrap;justify-content:center;gap:.75rem 1.75rem;margin-top:1.75rem;font-size:1rem}
+  .reach a{display:inline-flex;align-items:center;gap:.5rem;color:#fff;text-decoration:none;font-weight:600}
+  .reach a:hover{text-decoration:underline}
+  .reach svg{width:1.05rem;height:1.05rem;color:var(--c2-l)}
+
+  footer{padding:2rem 0 2.5rem;font-size:.875rem;color:var(--muted);text-align:center}
+  footer a{color:var(--muted)}
+
+  @media (prefers-reduced-motion:no-preference){
+    .rise{animation:rise .8s cubic-bezier(.2,.7,.2,1) both}
+    .d1{animation-delay:.08s}.d2{animation-delay:.16s}.d3{animation-delay:.24s}.d4{animation-delay:.36s}
+    @keyframes rise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+  }
+
+  /* Tablette */
+  @media (min-width:40rem){
+    .facts{grid-template-columns:repeat(4,1fr)}
+    .grid3{grid-template-columns:repeat(2,1fr)}
+    .gallery{grid-auto-columns:minmax(14rem,40%)}
+    .steps{grid-template-columns:repeat(2,1fr)}
+    .nodes{grid-template-columns:repeat(2,1fr)}
+    .chal{grid-template-columns:repeat(2,1fr)}
+    .gains{grid-template-columns:repeat(2,1fr)}
+    .read{grid-template-columns:1fr auto;padding:2rem 2.25rem}
+    .cta{padding:4.5rem 3rem}
+  }
+  /* Bureau */
+  @media (min-width:60rem){
+    section{padding:6rem 0}
+    .nav{display:flex}
+    .hero{padding:2.5rem 0 5.5rem}
+    .hero-grid{grid-template-columns:1.1fr .9fr;gap:4rem}
+    .grid3{grid-template-columns:repeat(3,1fr)}
+    .solution{grid-template-columns:1fr 1fr;gap:4rem}
+    .gallery{grid-auto-flow:row;grid-template-columns:repeat(5,1fr);grid-auto-columns:auto;overflow:visible;padding:.5rem 0 0}
+    .feat{grid-template-columns:repeat(2,1fr);gap:1.5rem}
+    .steps{grid-template-columns:repeat(5,1fr)}
+    .nodes.n3{grid-template-columns:repeat(3,1fr)}
+    .nodes.n4{grid-template-columns:repeat(4,1fr)}
+    .arch-notes{grid-template-columns:repeat(2,1fr);gap:1.5rem 3rem}
+    .gains{grid-template-columns:repeat(4,1fr)}
+  }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Aller au contenu</a>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#6366F1"/><stop offset="1" stop-color="#06B6D4"/></linearGradient>
+  </defs>
+  <symbol id="i-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+  <symbol id="i-out" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></symbol>
+  <symbol id="i-down" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M6 13l6 6 6-6"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5"/></symbol>
+  <symbol id="i-paper" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2h9l5 5v15H6z"/><path d="M14 2v6h6M9 13h6M9 17h4"/></symbol>
+  <symbol id="i-plat" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9h18l-1.5 10.5a2 2 0 0 1-2 1.5h-11a2 2 0 0 1-2-1.5zM8 9V6a4 4 0 0 1 8 0v3"/></symbol>
+  <symbol id="i-blind" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.9 4.2A10 10 0 0 1 12 4c7 0 10 8 10 8a17 17 0 0 1-2.3 3.6M6.6 6.6C3.7 8.6 2 12 2 12s3 8 10 8a10 10 0 0 0 5.4-1.6M3 3l18 18M9.9 9.9a3 3 0 0 0 4.2 4.2"/></symbol>
+  <symbol id="i-users" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0M16 4.6a3.5 3.5 0 0 1 0 6.8M21.5 20a6.5 6.5 0 0 0-4-6"/></symbol>
+  <symbol id="i-store" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V8l7-5 7 5v13M9 21v-6h6v6"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 4 6v6c0 4.5 3.4 8 8 9 4.6-1 8-4.5 8-9V6l-8-3z"/><path d="m8.5 12 2.5 2.5 4.5-5"/></symbol>
+  <symbol id="i-layers" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 3 7l9 5 9-5-9-5zM3 12l9 5 9-5M3 17l9 5 9-5"/></symbol>
+  <symbol id="i-bell" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9M10.3 21a1.9 1.9 0 0 0 3.4 0"/></symbol>
+  <symbol id="i-rocket" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 15c-1.5 1.3-2 5-2 5s3.7-.5 5-2c.7-.8.7-2.1-.1-2.9a2.2 2.2 0 0 0-2.9-.1z"/><path d="m12 15-3-3a22 22 0 0 1 2-4A12.9 12.9 0 0 1 22 2c0 2.7-.8 7.5-6 11a22 22 0 0 1-4 2z"/><path d="M9 12H4s.6-3 2-4c1.6-1.1 5 0 5 0M12 15v5s3-.6 4-2c1.1-1.6 0-5 0-5"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2.5"/><path d="m2 7 10 7 10-7"/></symbol>
+</svg>
+
+<header class="top">
+  <div class="wrap">
+    <a class="logo" href="/" aria-label="Afaqus — accueil">
+      <svg class="mark" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="9" fill="url(#lg)"/><circle cx="16" cy="13.5" r="4" fill="none" stroke="#fff" stroke-width="2.4"/><path d="M6 21h20M10 24.5h12" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round"/></svg>
+      <span>Afaqus</span>
+    </a>
+    <nav class="nav" aria-label="Navigation principale">
+      <a href="/#services">Services</a>
+      <a href="/#work" aria-current="page">Réalisations</a>
+      <a href="/articles/">Articles</a>
+      <a href="/#method">Méthode</a>
+    </nav>
+    <a class="btn btn-sm" href="#contact">Parlons-en</a>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- Hero -->
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="wrap">
+      <nav aria-label="Fil d'Ariane"><ol class="crumbs"><li><a href="/">Accueil</a></li><li><a href="/#work">Réalisations</a></li><li aria-current="page">Stampi</li></ol></nav>
+      <div class="hero-grid">
+        <div>
+          <p class="pill rise"><span class="dot" aria-hidden="true"></span>Étude de cas · Restauration</p>
+          <h1 id="hero-title" class="rise d1">Stampi&nbsp;: une carte de fidélité unique pour <span class="grad">tous les restaurants</span></h1>
+          <p class="lead rise d2">Nous avons conçu et développé Stampi pour Res2Boost&nbsp;: une application qui remplace la carte à tampons en papier, donne aux restaurants leur propre base clients et les aide à faire revenir ceux qui ne reviennent plus.</p>
+          <div class="actions rise d3">
+            <a class="btn" href="https://stampi.res2boost.com/" rel="noopener">Voir l'application <svg aria-hidden="true"><use href="#i-out"/></svg></a>
+            <a class="ghost" href="#architecture">Comment c'est construit <svg aria-hidden="true"><use href="#i-down"/></svg></a>
+          </div>
+        </div>
+        <div class="duo rise d3">
+          <div class="phone"><img src="/stampi/stampi-cartes.jpg" width="780" height="1688" alt="Stampi côté client : écran « Mes cartes » avec une carte de fidélité à 4 tampons sur 6" fetchpriority="high"></div>
+          <div class="phone"><img src="/stampi/stampi-dash.jpg" width="780" height="1688" alt="Stampi côté restaurant : tableau de bord avec clients fidèles, clients actifs et tampons par jour" loading="lazy" decoding="async"></div>
+          <div class="toast t1" aria-hidden="true"><svg><use href="#i-check"/></svg>+1 tampon en un scan</div>
+        </div>
+      </div>
+      <dl class="facts rise d4">
+        <div><dt>Client</dt><dd>Res2Boost</dd></div>
+        <div><dt>Secteur</dt><dd>Restauration, Tunisie</dd></div>
+        <div><dt>Livré</dt><dd>Web, iOS, Android &amp; back-office</dd></div>
+        <div><dt>Rôle d'Afaqus</dt><dd>Conception, développement, mise en production</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <!-- Problème -->
+  <section class="soft" id="probleme" aria-labelledby="pb-title">
+    <div class="wrap">
+      <div class="head">
+        <p class="eyebrow">Le problème</p>
+        <h2 id="pb-title">Le restaurateur ne connaît pas ses clients</h2>
+        <p class="intro">Un restaurant de quartier sert des centaines de personnes par semaine, mais ne sait presque rien d'elles. Trois obstacles revenaient sans cesse.</p>
+      </div>
+      <ul class="grid3">
+        <li class="box"><span class="ico"><svg aria-hidden="true"><use href="#i-paper"/></svg></span><h3>La carte en papier se perd</h3><p>Elle s'oublie, se froisse, se falsifie. Et elle ne dit rien au restaurant&nbsp;: ni qui revient, ni à quelle fréquence, ni qui a disparu.</p></li>
+        <li class="box"><span class="ico"><svg aria-hidden="true"><use href="#i-plat"/></svg></span><h3>Le client appartient aux plateformes</h3><p>Pour joindre leurs clients, les restaurants dépendent des réseaux sociaux et des plateformes de livraison. Aucun lien direct, aucun moyen de les faire revenir.</p></li>
+        <li class="box"><span class="ico"><svg aria-hidden="true"><use href="#i-blind"/></svg></span><h3>La livraison échappe à toute fidélité</h3><p>Un client livré ne passe jamais en caisse&nbsp;: impossible de lui tamponner une carte. Une part croissante du chiffre d'affaires reste invisible.</p></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Solution -->
+  <section id="solution" aria-labelledby="sol-title">
+    <div class="wrap solution">
+      <div>
+        <p class="eyebrow">La solution</p>
+        <h2 id="sol-title">Une seule carte, dans le téléphone, pour tout un réseau</h2>
+      </div>
+      <div class="prose">
+        <p class="big">Le client garde <span class="grad2">une seule carte</span> pour tous les restaurants partenaires. Le restaurant, lui, récupère enfin <span class="grad2">sa propre base clients</span>.</p>
+        <p style="margin-top:1.25rem">Gratuite et créée en quelques secondes avec une simple adresse email, la carte Stampi suit le client d'un restaurant à l'autre. Plus le réseau grandit, plus elle sert, et plus les clients l'installent. Côté restaurant, un scan suffit à donner un tampon&nbsp;; tout le reste — statistiques, relances, campagnes — en découle.</p>
+        <ul class="deliv" aria-label="Ce qui a été livré">
+          <li>Application client</li><li>Espace restaurant</li><li>Administration du réseau</li><li>Applications iOS &amp; Android</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Galerie -->
+  <section class="dark-g" id="ecrans" aria-labelledby="gal-title">
+    <div class="wrap">
+      <div class="head">
+        <p class="eyebrow">L'application</p>
+        <h2 id="gal-title">Cinq écrans, deux publics</h2>
+        <p class="intro">Le client n'a besoin que de sa carte et de son QR. Le restaurant, d'un scanner et de chiffres lisibles d'un coup d'œil.</p>
+      </div>
+      <div class="gallery" tabindex="0" aria-label="Écrans de l'application Stampi (faire défiler horizontalement sur mobile)">
+        <figure><div class="phone"><img src="/stampi/stampi-cartes.jpg" width="780" height="1688" alt="Écran « Mes cartes » : cartes de fidélité de plusieurs restaurants, avec les tampons gagnés" loading="lazy" decoding="async"></div><figcaption><b>Mes cartes</b>Toutes les cartes du client, une par restaurant, avec la progression vers la récompense.</figcaption></figure>
+        <figure><div class="phone"><img src="/stampi/stampi-qr.jpg" width="780" height="1688" alt="Écran « Mon QR » : le QR code personnel du client à présenter en caisse" loading="lazy" decoding="async"></div><figcaption><b>Mon QR</b>Un seul QR personnel, valable dans tous les restaurants du réseau.</figcaption></figure>
+        <figure><div class="phone"><img src="/stampi/stampi-scan.jpg" width="780" height="1688" alt="Écran Scanner côté restaurant : confirmation « +1 tampon ajouté », 5 tampons sur 6" loading="lazy" decoding="async"></div><figcaption><b>Scanner</b>Le serveur scanne le QR&nbsp;: le tampon est ajouté, la récompense signalée.</figcaption></figure>
+        <figure><div class="phone"><img src="/stampi/stampi-dash.jpg" width="780" height="1688" alt="Tableau de bord restaurant : clients fidèles, actifs, nouveaux et récompenses sur 7 jours" loading="lazy" decoding="async"></div><figcaption><b>Vue d'ensemble</b>Clients fidèles, actifs, nouveaux&nbsp;: les chiffres qui comptent, par période.</figcaption></figure>
+        <figure><div class="phone"><img src="/stampi/stampi-liv.jpg" width="780" height="1688" alt="Écran « Fidélité livraison » : génération de codes uniques à glisser dans les sacs de livraison" loading="lazy" decoding="async"></div><figcaption><b>Fidélité livraison</b>Des codes uniques glissés dans les sacs&nbsp;: le client livré gagne aussi ses tampons.</figcaption></figure>
+      </div>
+      <p class="note">Écrans de l'application reproduits avec des données de démonstration&nbsp;: aucun nom ni chiffre de vrai client.</p>
+    </div>
+  </section>
+
+  <!-- Fonctionnalités -->
+  <section id="fonctionnalites" aria-labelledby="feat-title">
+    <div class="wrap">
+      <div class="head">
+        <p class="eyebrow">Fonctionnalités</p>
+        <h2 id="feat-title">Ce que fait Stampi</h2>
+      </div>
+      <div class="feat">
+        <div class="feat-col">
+          <h3><span class="ico"><svg aria-hidden="true"><use href="#i-users"/></svg></span>Pour le client</h3>
+          <ul class="checks">
+            <li><svg aria-hidden="true"><use href="#i-check"/></svg><span><b>Une carte pour tout le réseau</b> — un compte, toutes les cartes de ses restaurants.</span></li>
+            <li><svg aria-hidden="true"><use href="#i-check"/></svg><span><b>QR personnel</b> à présenter en caisse, sans rien télécharger d'autre.</span></li>
+            <li><svg aria-hidden="true"><use href="#i-check"/></svg><span><b>Tampons et récompenses</b> visibles en temps réel, carte par carte.</span></li>
+            <li><svg aria-hidden="true"><use href="#i-check"/></svg><span><b>Offres des restaurants partenaires</b> et découverte du réseau.</span></li>
+            <li><svg aria-hidden="true"><use href="#i-check"/></svg><span><b>Connexion simple</b> — email et mot de passe, Google ou Apple.</span></li>
+            <li><svg aria-hidden="true"><use href="#i-check"/></svg><span><b>Notifications</b> quand un tampon tombe ou qu'une offre arrive.</span></li>
+          </ul>
+        </div>
+        <div class="feat-col">
+          <h3><span class="ico"><svg aria-hidden="true"><use href="#i-store"/></svg></span>Pour le restaurant</h3>
+          <ul class="checks">
+            <li><svg aria-hidden="true"><use href="#i-check"/></svg><span><b>Scan en un geste</b> depuis n'importe quel téléphone de l'équipe.</span></li>
+            <li><svg aria-hidden="true"><use href="#i-check"/></svg><span><b>Tableau de bord</b> — clients fidèles, actifs, nouveaux, par période, exportable.</span></li>
+            <li><svg aria-hidden="true"><use href="#i-check"/></svg><span><b>Historique traçable</b> — chaque tampon et récompense&nbsp;: qui, quand, comment.</span></li>
+            <li><svg aria-hidden="true"><use href="#i-check"/></svg><span><b>Fidélité livraison</b> — codes uniques à usage unique, planche de stickers à imprimer.</span></li>
+            <li><svg aria-hidden="true"><use href="#i-check"/></svg><span><b>Relances automatiques</b> 3, 7 et 15 jours après le dernier passage.</span></li>
+            <li><svg aria-hidden="true"><use href="#i-check"/></svg><span><b>Campagnes</b> par notification, email et SMS, ciblées par segment de clients.</span></li>
+            <li><svg aria-hidden="true"><use href="#i-check"/></svg><span><b>Équipe et rôles</b> — gérant et serveurs n'ont pas les mêmes droits.</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Fonctionnement -->
+  <section class="soft" id="fonctionnement" aria-labelledby="how-title">
+    <div class="wrap">
+      <div class="head">
+        <p class="eyebrow">Fonctionnement</p>
+        <h2 id="how-title">Du premier passage au client qui revient</h2>
+      </div>
+      <ol class="steps">
+        <li><h3>Le client crée sa carte</h3><p>Une adresse email suffit. La carte est gratuite et prête en quelques secondes.</p></li>
+        <li><h3>Il montre son QR</h3><p>En caisse ou à table, le même QR sert dans tous les restaurants du réseau.</p></li>
+        <li><h3>Le restaurant scanne</h3><p>+1 tampon. Le passage est enregistré avec son auteur et son heure.</p></li>
+        <li><h3>La récompense tombe</h3><p>Au dernier tampon, le client est prévenu et la récompense apparaît sur sa carte.</p></li>
+        <li><h3>L'absent est relancé</h3><p>Sans retour après 3, 7 puis 15 jours, un message personnalisé part tout seul.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- Architecture -->
+  <section class="dark-g" id="architecture" aria-labelledby="arch-title">
+    <div class="wrap">
+      <div class="head">
+        <p class="eyebrow">Architecture</p>
+        <h2 id="arch-title">Une base de code, trois plateformes</h2>
+        <p class="intro">Le web, l'iPhone et Android partagent la même application. Chaque évolution sort partout à la fois, sans trois équipes à coordonner.</p>
+      </div>
+      <div class="arch" role="group" aria-label="Schéma d'architecture de Stampi">
+        <div class="layer">
+          <h3>Ce que voient les utilisateurs</h3>
+          <div class="nodes n3">
+            <div class="node"><b>Application web</b><span>Navigateur, installable sur l'écran d'accueil</span></div>
+            <div class="node"><b>App iOS</b><span>Coque native Capacitor, connexion Apple native</span></div>
+            <div class="node"><b>App Android</b><span>Même coque, même code applicatif</span></div>
+          </div>
+        </div>
+        <div class="flow" aria-hidden="true"><svg><use href="#i-down"/></svg></div>
+        <div class="layer">
+          <h3>Application</h3>
+          <div class="nodes">
+            <div class="node"><b>Next.js 15 &amp; React 19</b><span>Pages rendues côté serveur, TypeScript de bout en bout</span></div>
+            <div class="node"><b>Hébergement Vercel</b><span>Mise en ligne continue à chaque validation</span></div>
+          </div>
+        </div>
+        <div class="flow" aria-hidden="true"><svg><use href="#i-down"/></svg></div>
+        <div class="layer">
+          <h3>Données &amp; services</h3>
+          <div class="nodes n4">
+            <div class="node"><b>PostgreSQL (Supabase)</b><span>Isolation des données par restaurant au niveau de la base</span></div>
+            <div class="node"><b>Authentification</b><span>Email, Google, Sign in with Apple</span></div>
+            <div class="node"><b>Messagerie</b><span>Notifications push, email, SMS</span></div>
+            <div class="node"><b>Tâches planifiées</b><span>Relances automatiques des clients absents</span></div>
+          </div>
+        </div>
+      </div>
+      <ul class="arch-notes">
+        <li><span class="ico"><svg aria-hidden="true"><use href="#i-shield"/></svg></span><div><h3>Sécurité dans la base, pas seulement dans l'interface</h3><p>Chaque requête est filtrée par restaurant directement dans PostgreSQL (Row Level Security). Un bug d'écran ne peut pas exposer les clients d'un concurrent.</p></div></li>
+        <li><span class="ico"><svg aria-hidden="true"><use href="#i-layers"/></svg></span><div><h3>Un schéma versionné</h3><p>Une soixantaine de migrations SQL tracées dans le code&nbsp;: la base de production se reconstruit et s'audite à l'identique.</p></div></li>
+        <li><span class="ico"><svg aria-hidden="true"><use href="#i-bell"/></svg></span><div><h3>Le bon canal pour chaque message</h3><p>Notification gratuite d'abord, email ensuite, SMS pour ceux qui n'ont pas installé l'application.</p></div></li>
+        <li><span class="ico"><svg aria-hidden="true"><use href="#i-rocket"/></svg></span><div><h3>Mise en production automatisée</h3><p>Le web part en ligne à chaque validation&nbsp;; les applications mobiles sont compilées et signées par un pipeline d'intégration continue.</p></div></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Défis -->
+  <section id="defis" aria-labelledby="def-title">
+    <div class="wrap">
+      <div class="head">
+        <p class="eyebrow">Choix techniques</p>
+        <h2 id="def-title">Quatre problèmes qu'il a fallu résoudre</h2>
+      </div>
+      <div class="chal">
+        <article aria-labelledby="c1"><h3 id="c1">Fidéliser un client qu'on ne voit jamais</h3><h4>Le défi</h4><p>Le client livré ne passe pas en caisse et ne peut pas montrer son QR.</p><h4>Notre réponse</h4><p>Des codes uniques à usage unique, générés par lots et imprimés en stickers. Le client saisit le code dans l'app&nbsp;; chaque code ne peut servir qu'une fois, ce qui rend la fraude inutile.</p></article>
+        <article aria-labelledby="c2"><h3 id="c2">Une seule carte, des restaurants concurrents</h3><h4>Le défi</h4><p>Le même client fréquente plusieurs restaurants du réseau, qui ne doivent jamais voir les données des autres.</p><h4>Notre réponse</h4><p>Une identité client unique, des cartes cloisonnées par restaurant, et un cloisonnement appliqué par la base de données elle-même.</p></article>
+        <article aria-labelledby="c3"><h3 id="c3">Une vraie app sur l'App Store, sans tout réécrire</h3><h4>Le défi</h4><p>Apple exige une expérience native&nbsp;: connexion Apple dans l'app, photos, cartes, aucun lien d'achat externe.</p><h4>Notre réponse</h4><p>Une coque native légère autour de l'application web, avec les briques natives là où elles comptent&nbsp;: Sign in with Apple, appareil photo, Apple Plans, notifications.</p></article>
+        <article aria-labelledby="c4"><h3 id="c4">Faire revenir sans spammer</h3><h4>Le défi</h4><p>Une relance trop tôt agace, trop tard ne sert à rien, et chaque SMS a un coût.</p><h4>Notre réponse</h4><p>Trois paliers de relance calés sur le dernier tampon, un message personnalisé avec la progression du client, et l'envoi par le canal le moins cher disponible.</p></article>
+      </div>
+      <ul class="tags" aria-label="Technologies utilisées">
+        <li>Next.js 15</li><li>React 19</li><li>TypeScript</li><li>Tailwind CSS</li><li>PostgreSQL</li><li>Supabase</li><li>Row Level Security</li><li>Capacitor</li><li>iOS &amp; Android</li><li>Sign in with Apple</li><li>Web Push</li><li>Email transactionnel</li><li>SMS</li><li>Vercel</li><li>Intégration continue</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Gains -->
+  <section class="soft" id="benefices" aria-labelledby="gain-title">
+    <div class="wrap">
+      <div class="head">
+        <p class="eyebrow">Côté métier</p>
+        <h2 id="gain-title">Ce que le restaurant y gagne</h2>
+      </div>
+      <ul class="gains">
+        <li class="gain"><strong>Sa propre base clients</strong><p>Des clients qu'il peut recontacter directement, sans payer de plateforme.</p></li>
+        <li class="gain"><strong>Des chiffres, enfin</strong><p>Qui revient, qui a disparu, quels jours tournent&nbsp;: visible en un coup d'œil.</p></li>
+        <li class="gain"><strong>Des relances qui tournent seules</strong><p>Les clients absents sont relancés sans que personne n'ait à y penser.</p></li>
+        <li class="gain"><strong>Zéro matériel</strong><p>Pas de borne ni de caisse à changer&nbsp;: un téléphone suffit pour scanner.</p></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- À lire -->
+  <section aria-labelledby="read-title">
+    <div class="wrap">
+      <a class="read" href="/articles/stampi-application-fidelite-restaurant/">
+        <div><small>Article</small><h3 id="read-title">Fidéliser ses clients sans carte en papier&nbsp;: ce que nous avons appris en construisant Stampi</h3><p>Les leçons métier et techniques du projet, pour les restaurateurs comme pour les équipes produit.</p></div>
+        <span class="go">Lire l'article <svg aria-hidden="true"><use href="#i-arrow"/></svg></span>
+      </a>
+    </div>
+  </section>
+
+  <!-- Appel final -->
+  <section id="contact" aria-labelledby="contact-title" style="padding-top:0">
+    <div class="wrap">
+      <div class="cta">
+        <h2 id="contact-title">Vous avez besoin d'une application comme celle-ci&nbsp;?</h2>
+        <p>Fidélité, réservation, commande, outil interne&nbsp;: 20 minutes suffisent pour savoir si c'est faisable, et à quel prix.</p>
+        <a class="btn btn-white" href="mailto:salem.haddadbecha@gmail.com?subject=Projet%20d%27application%20%E2%80%94%20suite%20%C3%A0%20l%27%C3%A9tude%20de%20cas%20Stampi&amp;body=Bonjour%2C%0A%0AJ%27ai%20lu%20l%27%C3%A9tude%20de%20cas%20Stampi%20et%20je%20souhaiterais%20un%20%C3%A9change%20de%2020%20minutes%20au%20sujet%20de%20%3A%20%0A%0A%0AEntreprise%20%3A%20%0AT%C3%A9l%C3%A9phone%20%3A%20%0AMes%20disponibilit%C3%A9s%20%3A%20%0A">Réserver 20 minutes <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+        <p class="reach">
+          <a href="tel:+33699225322"><svg aria-hidden="true"><use href="#i-phone"/></svg>+33&nbsp;6&nbsp;99&nbsp;22&nbsp;53&nbsp;22</a>
+          <a href="mailto:salem.haddadbecha@gmail.com"><svg aria-hidden="true"><use href="#i-mail"/></svg>Nous écrire</a>
+        </p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">© 2026 Afaqus · <a href="/">Accueil</a> · <a href="/kaissi/">Étude de cas Kaissi</a> · <a href="/articles/">Articles</a></div>
+</footer>
+</body>
+</html>

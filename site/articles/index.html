@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Articles — retours d'expérience Afaqus sur les logiciels métier</title>
+<meta name="description" content="Retours d'expérience d'Afaqus : comment nous concevons et construisons des logiciels métier, applications mobiles et outils sur mesure pour les PME.">
+<meta name="theme-color" content="#0A0E1A">
+<link rel="canonical" href="https://afaqus.com/articles/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:site_name" content="Afaqus">
+<meta property="og:title" content="Articles Afaqus — retours d'expérience">
+<meta property="og:description" content="Comment nous concevons et construisons des logiciels métier pour les PME.">
+<meta property="og:url" content="https://afaqus.com/articles/">
+<meta property="og:image" content="https://afaqus.com/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2032%2032%27%3E%3Cdefs%3E%3ClinearGradient%20id%3D%27g%27%20x1%3D%270%27%20y1%3D%270%27%20x2%3D%271%27%20y2%3D%271%27%3E%3Cstop%20offset%3D%270%27%20stop-color%3D%27%236366F1%27%2F%3E%3Cstop%20offset%3D%271%27%20stop-color%3D%27%2306B6D4%27%2F%3E%3C%2FlinearGradient%3E%3C%2Fdefs%3E%3Crect%20width%3D%2732%27%20height%3D%2732%27%20rx%3D%278%27%20fill%3D%27url%28%23g%29%27%2F%3E%3Ccircle%20cx%3D%2716%27%20cy%3D%2713.5%27%20r%3D%274%27%20fill%3D%27none%27%20stroke%3D%27%23fff%27%20stroke-width%3D%272.4%27%2F%3E%3Cpath%20d%3D%27M6%2021h20M10%2024.5h12%27%20fill%3D%27none%27%20stroke%3D%27%23fff%27%20stroke-width%3D%272.4%27%20stroke-linecap%3D%27round%27%2F%3E%3C%2Fsvg%3E">
+<link rel="preload" href="/fonts/plus-jakarta-sans.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+  @font-face{font-family:"Jakarta";src:url(/fonts/plus-jakarta-sans.woff2) format("woff2");font-weight:200 800;font-display:swap}
+  :root{--c1:#4F46E5;--c2-l:#22D3EE;--grad:linear-gradient(120deg,#4F46E5 0%,#0E7490 100%);--grad-l:linear-gradient(100deg,#A5B4FC 0%,#67E8F9 100%);
+        --ink:#0A0E1A;--head:#0B1224;--text:#3B4556;--muted:#5E6A7D;--line:#E6E8EF;--soft:#F5F6FA;--max:72rem}
+  *,*::before,*::after{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{margin:0;font-family:Jakarta,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;font-size:1.0625rem;line-height:1.65;color:var(--text);background:#fff;-webkit-font-smoothing:antialiased}
+  h1,h2{color:var(--head);line-height:1.15;margin:0;letter-spacing:-.025em;text-wrap:balance}
+  p{margin:0} ul{margin:0;padding:0;list-style:none}
+  img{max-width:100%;height:auto}
+  :focus-visible{outline:3px solid var(--c2-l);outline-offset:3px;border-radius:6px}
+  .wrap{max-width:var(--max);margin:0 auto;padding:0 1.25rem}
+  .skip{position:absolute;left:-999px;top:0;background:#fff;color:var(--ink);padding:.6rem 1rem;z-index:50;border-radius:8px}
+  .skip:focus{left:1rem;top:1rem}
+  .btn{display:inline-flex;align-items:center;gap:.55rem;background:var(--grad);color:#fff;text-decoration:none;font-weight:700;padding:.6rem 1.1rem;font-size:.9375rem;border-radius:999px;line-height:1.2}
+  .top{position:sticky;top:0;z-index:40;background:rgba(10,14,26,.82);backdrop-filter:saturate(160%) blur(14px);-webkit-backdrop-filter:saturate(160%) blur(14px);border-bottom:1px solid rgba(255,255,255,.07)}
+  .top .wrap{display:flex;align-items:center;justify-content:space-between;min-height:4.25rem;gap:1rem}
+  .logo{display:inline-flex;align-items:center;gap:.6rem;font-weight:800;font-size:1.125rem;color:#fff;text-decoration:none;letter-spacing:-.02em}
+  .mark{width:2rem;height:2rem;flex:none}
+  .nav{display:none;gap:2rem}
+  .nav a{color:#CBD5E1;text-decoration:none;font-size:.9375rem;font-weight:500}
+  .nav a:hover,.nav a[aria-current]{color:#fff}
+  .hero{position:relative;overflow:hidden;background:var(--ink);color:#CBD5E1;padding:3.5rem 0}
+  .hero::before{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(40rem 26rem at 85% 10%,rgba(99,102,241,.32),transparent 60%)}
+  .hero .wrap{position:relative}
+  .eyebrow{display:inline-block;font-size:.8125rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--c2-l);margin-bottom:.85rem}
+  .hero h1{color:#fff;font-size:clamp(2.2rem,6vw,3.25rem);font-weight:800;letter-spacing:-.035em}
+  .hero p{margin-top:1rem;max-width:36rem;font-size:1.125rem}
+  .list{padding:3.5rem 0 5rem}
+  .post{display:grid;gap:1.5rem;align-items:center;border:1px solid var(--line);border-radius:20px;padding:1.25rem;text-decoration:none;color:inherit;transition:transform .2s,box-shadow .2s,border-color .2s}
+  .post:hover{transform:translateY(-3px);border-color:#C7D2FE;box-shadow:0 24px 50px -30px rgba(15,23,42,.35)}
+  .thumb{border-radius:14px;overflow:hidden;background:var(--ink);display:flex;justify-content:center;gap:.75rem;padding:1.5rem 1rem 0;max-height:16rem;
+         background-image:radial-gradient(20rem 14rem at 80% 0,rgba(99,102,241,.45),transparent 65%)}
+  .thumb img{width:42%;max-width:9rem;border-radius:1.2rem 1.2rem 0 0;align-self:flex-start;box-shadow:0 0 0 .3rem #1E2540}
+  .list ul{display:grid;gap:1.25rem}
+  .thumb.txt{align-items:center;justify-content:flex-start;padding:1.5rem;min-height:11rem;flex-direction:column;align-items:flex-start;justify-content:flex-end;background-image:radial-gradient(20rem 14rem at 80% 0,rgba(6,182,212,.4),transparent 65%)}
+  .thumb.txt b{font-size:2.6rem;font-weight:800;letter-spacing:-.04em;line-height:1;background:var(--grad-l);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .thumb.txt span{margin-top:.4rem;font-size:.875rem;font-weight:600;color:#CBD5E1}
+  .post small{font-size:.8125rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--c1)}
+  .post h2{font-size:clamp(1.3rem,3vw,1.65rem);font-weight:800;margin:.5rem 0}
+  .post p{color:var(--muted)}
+  .post time{display:block;margin-top:1rem;font-size:.875rem;color:var(--muted)}
+  footer{padding:2rem 0 2.5rem;font-size:.875rem;color:var(--muted);text-align:center}
+  footer a{color:var(--muted)}
+  @media (min-width:40rem){.post{grid-template-columns:18rem 1fr;padding:1.5rem;gap:2rem}.thumb{max-height:none;height:100%}}
+  @media (min-width:60rem){.nav{display:flex}.hero{padding:4.5rem 0}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Aller au contenu</a>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#6366F1"/><stop offset="1" stop-color="#06B6D4"/></linearGradient></defs></svg>
+<header class="top">
+  <div class="wrap">
+    <a class="logo" href="/" aria-label="Afaqus — accueil">
+      <svg class="mark" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="9" fill="url(#lg)"/><circle cx="16" cy="13.5" r="4" fill="none" stroke="#fff" stroke-width="2.4"/><path d="M6 21h20M10 24.5h12" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round"/></svg>
+      <span>Afaqus</span>
+    </a>
+    <nav class="nav" aria-label="Navigation principale">
+      <a href="/#services">Services</a>
+      <a href="/#work">Réalisations</a>
+      <a href="/articles/" aria-current="page">Articles</a>
+      <a href="/#method">Méthode</a>
+    </nav>
+    <a class="btn" href="/#contact">Parlons-en</a>
+  </div>
+</header>
+<main id="main">
+  <section class="hero" aria-labelledby="t">
+    <div class="wrap">
+      <p class="eyebrow">Articles</p>
+      <h1 id="t">Retours d'expérience</h1>
+      <p>Ce que nous apprennent les outils que nous construisons — côté métier comme côté technique.</p>
+    </div>
+  </section>
+  <section class="list" aria-label="Liste des articles">
+    <div class="wrap">
+      <ul>
+        <li>
+          <a class="post" href="/articles/stampi-application-fidelite-restaurant/">
+            <div class="thumb" aria-hidden="true"><img src="/stampi/stampi-cartes.jpg" width="780" height="1688" alt="" loading="lazy" decoding="async"><img src="/stampi/stampi-dash.jpg" width="780" height="1688" alt="" loading="lazy" decoding="async"></div>
+            <div>
+              <small>Restauration · Application mobile</small>
+              <h2>Fidéliser ses clients sans carte en papier&nbsp;: ce que nous avons appris en construisant Stampi</h2>
+              <p>Pourquoi la carte à tampons ne suffit plus, et les décisions de conception derrière une carte de fidélité unique pour tout un réseau de restaurants.</p>
+              <time datetime="2026-11-13">13 novembre 2026 · 6 min</time>
+            </div>
+          </a>
+        </li>
+        <li>
+          <a class="post" href="/articles/encaisser-sans-internet/">
+            <div class="thumb txt" aria-hidden="true"><b>Hors ligne</b><span>Kaissi · la caisse continue</span></div>
+            <div>
+              <small>Restauration · Caisse hors ligne</small>
+              <h2>Encaisser sans Internet&nbsp;: comment construire une caisse qui ne s'arrête jamais</h2>
+              <p>Pourquoi une caisse cloud s'arrête quand le réseau tombe, et comment nous avons construit Kaissi pour qu'elle continue.</p>
+              <time datetime="2026-11-13">13 novembre 2026 · 6 min</time>
+            </div>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </section>
+</main>
+<footer><div class="wrap">© 2026 Afaqus · <a href="/">Accueil</a> · <a href="/kaissi/">Kaissi</a> · <a href="/stampi/">Stampi</a></div></footer>
+</body>
+</html>
