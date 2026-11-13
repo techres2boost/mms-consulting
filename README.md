@@ -4,7 +4,7 @@ Ce dépôt contient deux choses distinctes :
 
 | Dossier | Contenu | Publié sur le web ? |
 |---|---|---|
-| [`site/`](site/) | Site vitrine Afaqus — une page statique (`index.html`), image de partage, en-têtes HTTP | **Oui** — c'est le seul dossier déployé |
+| [`site/`](site/) | Site vitrine Afaqus — accueil (`index.html`), étude de cas [`kaissi/`](site/kaissi/), article [`articles/encaisser-sans-internet/`](site/articles/encaisser-sans-internet/), `sitemap.xml`, image de partage, en-têtes HTTP | **Oui** — c'est le seul dossier déployé |
 | [`audio-project/`](audio-project/) | Étude technique « Call Com » (publicité audio pendant l'appel) : docs, migrations SQL, présentations, devis, PDF | **Non** — document client, jamais servi par le site |
 
 ## Site vitrine
