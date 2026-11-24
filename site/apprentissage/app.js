@@ -227,41 +227,58 @@
     groups.forEach(function (g) { g.el.open = false; });
   });
 
-  function refreshDump() {
-    document.getElementById("dump").value = JSON.stringify(state);
-  }
-  refreshDump();
+  var dump = document.getElementById("dump");
+  var bCopy = document.getElementById("b-copy"), bPaste = document.getElementById("b-paste"),
+      bRestore = document.getElementById("b-restore"), bCancel = document.getElementById("b-cancel");
 
-  document.getElementById("b-copy").addEventListener("click", function () {
-    var ta = document.getElementById("dump");
-    ta.select();
-    var ok = false;
-    try { ok = document.execCommand("copy"); } catch (e) { ok = false; }
-    if (navigator.clipboard && !ok) {
-      navigator.clipboard.writeText(ta.value).then(
-        function () { say("Copié."); },
-        function () { say("Copie impossible — sélectionne le texte à la main.", true); }
-      );
-    } else {
+  function refreshDump() { if (dump.readOnly) dump.value = JSON.stringify(state); }
+  function lockDump() {
+    dump.readOnly = true;
+    bCopy.hidden = false; bPaste.hidden = false;
+    bRestore.hidden = true; bCancel.hidden = true;
+    refreshDump();
+  }
+  lockDump();
+
+  bCopy.addEventListener("click", function () {
+    var txt = dump.value;
+    function fallback() {
+      dump.select();
+      var ok = false;
+      try { ok = document.execCommand("copy"); } catch (e) { ok = false; }
       say(ok ? "Copié." : "Copie impossible — sélectionne le texte à la main.", !ok);
     }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(txt).then(function () { say("Copié."); }, fallback);
+    } else { fallback(); }
   });
 
-  document.getElementById("b-restore").addEventListener("click", function () {
-    var txt = document.getElementById("dump").value.trim();
+  bPaste.addEventListener("click", function () {
+    dump.readOnly = false;
+    dump.value = "";
+    dump.placeholder = "Colle ici le texte que tu avais copié";
+    bCopy.hidden = true; bPaste.hidden = true;
+    bRestore.hidden = false; bCancel.hidden = false;
+    dump.focus();
+  });
+  bCancel.addEventListener("click", function () { lockDump(); say(""); });
+
+  bRestore.addEventListener("click", function () {
+    var txt = dump.value.trim();
     if (!txt) { say("Colle d'abord une sauvegarde.", true); return; }
     var obj;
-    try { obj = JSON.parse(txt); } catch (e) { say("Texte illisible.", true); return; }
-    if (!obj || typeof obj !== "object" || Array.isArray(obj)) { say("Texte illisible.", true); return; }
+    try { obj = JSON.parse(txt); } catch (e) { say("Ce texte n'est pas une sauvegarde valide.", true); return; }
+    if (!obj || typeof obj !== "object" || Array.isArray(obj)) { say("Ce texte n'est pas une sauvegarde valide.", true); return; }
     var valid = {}, n = 0;
     PLAN.forEach(function (p) { if (obj[p.id]) { valid[p.id] = obj[p.id]; n++; } });
+    if (!n) { say("Aucun thumn trouvé dans ce texte.", true); return; }
     state = valid;
+    lockDump();
     save();
-    groups.forEach(function (g) { g.rows.forEach(function (r) { r.__paint(); }); });
-    document.querySelectorAll('.row input[type=checkbox]').forEach(function (cb) {
-      var id = cb.closest(".row").getAttribute("data-id");
-      cb.checked = !!state[id];
-    });
+    groups.forEach(function (g) { g.rows.forEach(function (r) {
+      r.querySelector("input").checked = !!state[r.getAttribute("data-id")];
+      r.__paint();
+    }); });
     updateAll();
     say(n + " thumn restaurés.");
   });

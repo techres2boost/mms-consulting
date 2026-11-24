@@ -49,7 +49,11 @@
     background:radial-gradient(34rem 20rem at 92% 0,rgba(99,102,241,.45),transparent 60%),
                radial-gradient(28rem 18rem at 0 110%,rgba(6,182,212,.28),transparent 60%)}
   header .wrap{position:relative}
-  .brand{display:flex;align-items:center;gap:.65rem;margin-bottom:1.3rem}
+  .topbar{display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;margin-bottom:1.3rem}
+  .brand{display:flex;align-items:center;gap:.65rem}
+  .nav{display:flex;gap:.35rem;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:999px;padding:.25rem}
+  .nav a{color:#CBD5E1;text-decoration:none;font-size:.85rem;font-weight:600;padding:.3rem .8rem;border-radius:999px}
+  .nav a[aria-current]{background:#fff;color:var(--ink)}
   .brand svg{width:2rem;height:2rem;flex:none}
   .brand b{font-size:1.05rem;font-weight:800;color:#fff;letter-spacing:-.02em}
   header h1{color:#fff;font-size:clamp(1.6rem,5vw,2.2rem);font-weight:800;margin-bottom:.4rem}
@@ -76,6 +80,8 @@
   .btn{font:inherit;font-size:.88rem;font-weight:700;color:var(--head);background:#fff;border:1px solid var(--line);
        border-radius:999px;padding:.5rem 1rem;cursor:pointer}
   .btn:hover{border-color:var(--c1-l);color:var(--c1)}
+  .btn.primary{background:var(--grad);color:#fff;border-color:transparent}
+  .btn[hidden]{display:none}
 
   .hizb{border:1px solid var(--line);border-radius:var(--r);margin-bottom:.7rem;overflow:hidden;background:#fff}
   .hizb.is-now{border-color:var(--c1-l);box-shadow:0 10px 30px -18px rgba(79,70,229,.5)}
@@ -120,6 +126,7 @@
   .save p{font-size:.88rem;color:var(--muted);margin-bottom:.8rem}
   .save textarea{width:100%;min-height:6rem;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.78rem;
       border:1px solid var(--line);border-radius:10px;padding:.6rem;resize:vertical;background:#fff;color:var(--text)}
+  .save textarea[readonly]{background:#FAFAFC;color:var(--muted)}
   .msg{font-size:.85rem;font-weight:700;color:var(--ok);margin-top:.5rem;min-height:1.2rem}
   footer{padding:1.5rem 0 2.5rem;font-size:.8rem;color:var(--muted);text-align:center}
 
@@ -131,9 +138,15 @@
 
 <header>
   <div class="wrap">
+    <div class="topbar">
     <div class="brand">
       <svg viewBox="0 0 32 32" aria-hidden="true"><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#6366F1"/><stop offset="1" stop-color="#06B6D4"/></linearGradient></defs><rect width="32" height="32" rx="9" fill="url(#lg)"/><circle cx="16" cy="13.5" r="4" fill="none" stroke="#fff" stroke-width="2.4"/><path d="M6 21h20M10 24.5h12" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round"/></svg>
       <b>Afaqus</b>
+    </div>
+    <nav class="nav" aria-label="Suivis">
+      <a href="/apprentissage" aria-current="page">Coran</a>
+      <a href="/apprentissage/lamiya">لامية الأفعال</a>
+    </nav>
     </div>
     <h1>Suivi d'apprentissage</h1>
     <p class="sub">Un thumn (1/8 de hizb) tous les 5 jours — du hizb 9 au hizb 60.</p>
@@ -165,11 +178,13 @@
 
     <section class="save">
       <h2>Sauvegarde</h2>
-      <p>Les cases cochées sont enregistrées dans ce navigateur uniquement. Copie ce texte et garde-le quelque part : il te permet de tout restaurer si tu changes de téléphone ou vides ton navigateur.</p>
-      <textarea id="dump" spellcheck="false" aria-label="Données de sauvegarde"></textarea>
+      <p>Les cases cochées sont enregistrées dans ce navigateur uniquement. Copie ce texte et garde-le quelque part : il te permet de tout restaurer si tu changes de téléphone ou vides ton navigateur. Tu n'as rien à écrire ici : le texte se met à jour tout seul à chaque case cochée.</p>
+      <textarea id="dump" readonly spellcheck="false" aria-label="Données de sauvegarde"></textarea>
       <div class="tools" style="margin:.7rem 0 0">
         <button class="btn" id="b-copy" type="button">Copier</button>
-        <button class="btn" id="b-restore" type="button">Restaurer depuis ce texte</button>
+        <button class="btn" id="b-paste" type="button">Coller une sauvegarde</button>
+        <button class="btn primary" id="b-restore" type="button" hidden>Confirmer la restauration</button>
+        <button class="btn" id="b-cancel" type="button" hidden>Annuler</button>
       </div>
       <p class="msg" id="msg" role="status"></p>
     </section>

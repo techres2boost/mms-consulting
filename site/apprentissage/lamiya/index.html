@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>لامية الأفعال — متابعة الحفظ</title>
+<meta name="robots" content="noindex, nofollow, noarchive">
+<meta name="theme-color" content="#0A0E1A">
+<meta name="referrer" content="no-referrer">
+
+<!--
+  Page de suivi personnel — non listée, non indexée.
+  Lāmiyyat al-Afʿāl d'Ibn Mālik : 114 abyat, pages 17 à 24 du livre.
+  Rythme : 1 bayt par jour. Page 17 déjà apprise ; page 18, bayt 1 = lundi 23 novembre 2026.
+  Tout le planning découle des constantes en tête de app.js (ANCHOR_DATE, ANCHOR_LINE).
+-->
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20viewBox%3D%270%200%2032%2032%27%3E%3Cdefs%3E%3ClinearGradient%20id%3D%27g%27%20x1%3D%270%27%20y1%3D%270%27%20x2%3D%271%27%20y2%3D%271%27%3E%3Cstop%20offset%3D%270%27%20stop-color%3D%27%236366F1%27/%3E%3Cstop%20offset%3D%271%27%20stop-color%3D%27%2306B6D4%27/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect%20width%3D%2732%27%20height%3D%2732%27%20rx%3D%278%27%20fill%3D%27url%28%23g%29%27/%3E%3Ccircle%20cx%3D%2716%27%20cy%3D%2713.5%27%20r%3D%274%27%20fill%3D%27none%27%20stroke%3D%27%23fff%27%20stroke-width%3D%272.4%27/%3E%3Cpath%20d%3D%27M6%2021h20M10%2024.5h12%27%20fill%3D%27none%27%20stroke%3D%27%23fff%27%20stroke-width%3D%272.4%27%20stroke-linecap%3D%27round%27/%3E%3C/svg%3E">
+
+<style>
+  @font-face{font-family:"Jakarta";src:url(/fonts/plus-jakarta-sans.woff2) format("woff2");font-weight:200 800;font-display:swap}
+  :root{
+    --c1:#4F46E5; --c1-l:#A5B4FC; --c2:#0E7490; --c2-l:#22D3EE;
+    --grad:linear-gradient(120deg,#4F46E5 0%,#0E7490 100%);
+    --grad-l:linear-gradient(100deg,#A5B4FC 0%,#67E8F9 100%);
+    --ink:#0A0E1A; --head:#0B1224; --text:#3B4556; --muted:#5E6A7D;
+    --line:#E6E8EF; --soft:#F5F6FA;
+    --ok:#047857; --ok-bg:#ECFDF5; --ok-line:#A7F3D0;
+    --late:#B45309; --late-bg:#FFFBEB; --late-line:#FDE68A;
+    --r:14px; --max:60rem;
+    --ui:system-ui,-apple-system,"Segoe UI","SF Arabic","Noto Sans Arabic",Tahoma,Arial,sans-serif;
+    --verse:"Amiri","Noto Naskh Arabic","Traditional Arabic","Geeza Pro","Times New Roman",serif;
+  }
+  *,*::before,*::after{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{margin:0;font-family:var(--ui);font-size:1rem;line-height:1.7;color:var(--text);background:#fff;-webkit-font-smoothing:antialiased}
+  h1,h2,h3{color:var(--head);line-height:1.3;margin:0}
+  p{margin:0} ul{margin:0;padding:0;list-style:none}
+  .wrap{max-width:var(--max);margin:0 auto;padding:0 1.1rem}
+  :focus-visible{outline:3px solid var(--c2-l);outline-offset:2px;border-radius:6px}
+  .ltr{direction:ltr;unicode-bidi:isolate}
+
+  /* En-tête */
+  header{background:var(--ink);color:#CBD5E1;position:relative;overflow:hidden;padding:1.4rem 0 2.2rem}
+  header::before{content:"";position:absolute;inset:0;pointer-events:none;
+    background:radial-gradient(34rem 20rem at 8% 0,rgba(99,102,241,.45),transparent 60%),
+               radial-gradient(28rem 18rem at 100% 110%,rgba(6,182,212,.28),transparent 60%)}
+  header .wrap{position:relative}
+  .topbar{display:flex;align-items:center;justify-content:space-between;gap:1rem;margin-bottom:1.4rem}
+  .brand{display:flex;align-items:center;gap:.55rem;text-decoration:none}
+  .brand svg{width:1.8rem;height:1.8rem;flex:none}
+  .brand b{font-family:Jakarta,var(--ui);font-size:1rem;font-weight:800;color:#fff;letter-spacing:-.02em}
+  .nav{display:flex;gap:.35rem;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:999px;padding:.25rem}
+  .nav a{color:#CBD5E1;text-decoration:none;font-size:.85rem;font-weight:600;padding:.3rem .8rem;border-radius:999px}
+  .nav a[aria-current]{background:#fff;color:var(--ink)}
+  header h1{color:#fff;font-family:var(--verse);font-size:clamp(2rem,7vw,2.8rem);font-weight:700;margin-bottom:.2rem}
+  header .sub{color:#94A3B8;font-size:.95rem}
+
+  .stats{display:grid;gap:.7rem;grid-template-columns:1fr;margin-top:1.4rem}
+  .stat{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:var(--r);padding:.8rem 1rem}
+  .stat small{display:block;font-size:.8rem;color:#94A3B8;font-weight:700;margin-bottom:.15rem}
+  .stat b{font-size:1.15rem;color:#fff;font-weight:800}
+  .bar{height:.5rem;border-radius:999px;background:rgba(255,255,255,.14);overflow:hidden;margin-top:1rem}
+  .bar i{display:block;height:100%;border-radius:999px;background:var(--grad-l);width:0;transition:width .35s}
+  .pace{margin-top:.6rem;font-size:.9rem;color:#CBD5E1}
+  .pace b{color:#fff}
+
+  .today{margin-top:1.3rem;border-radius:var(--r);padding:1rem 1.1rem;background:rgba(255,255,255,.08);border:1px solid rgba(165,180,252,.4)}
+  .today small{display:block;font-size:.8rem;color:var(--c2-l);font-weight:800;margin-bottom:.2rem}
+  .today .where{color:#fff;font-weight:800;font-size:1.05rem}
+  .today .verse{font-family:var(--verse);color:#fff;font-size:1.45rem;line-height:1.6;margin:.25rem 0}
+  .today .when{font-size:.9rem;color:#CBD5E1}
+  .warn{margin-top:.7rem;font-size:.88rem;font-weight:700;color:#FDE68A}
+
+  main{padding:1.8rem 0 3rem}
+  .tools{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:1.3rem}
+  .btn{font:inherit;font-size:.88rem;font-weight:700;color:var(--head);background:#fff;border:1px solid var(--line);
+       border-radius:999px;padding:.45rem 1rem;cursor:pointer}
+  .btn:hover{border-color:var(--c1-l);color:var(--c1)}
+  .btn.primary{background:var(--grad);color:#fff;border-color:transparent}
+  .btn[hidden]{display:none}
+  h2.sec{font-size:1.2rem;font-weight:800;margin:2rem 0 .8rem}
+
+  /* Objectifs */
+  .goals{display:grid;gap:1rem;grid-template-columns:1fr}
+  .gbox{border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+  .gbox h3{font-size:.95rem;font-weight:800;padding:.7rem 1rem;background:var(--soft);border-bottom:1px solid var(--line)}
+  .goal{display:flex;align-items:center;gap:.7rem;padding:.6rem 1rem;border-bottom:1px solid var(--soft)}
+  .goal:last-child{border-bottom:0}
+  .goal.next{background:#EEF2FF}
+  .goal .gt{flex:1;min-width:0}
+  .goal .gt b{display:block;font-size:.92rem;color:var(--head);font-weight:700}
+  .goal .gt span{display:block;font-size:.8rem;color:var(--muted)}
+
+  /* Pages */
+  .page{border:1px solid var(--line);border-radius:var(--r);margin-bottom:.7rem;overflow:hidden;background:#fff}
+  .page.is-now{border-color:var(--c1-l);box-shadow:0 10px 30px -18px rgba(79,70,229,.5)}
+  .page>summary{cursor:pointer;list-style:none;padding:.85rem 1rem;display:flex;align-items:center;gap:.8rem;font-weight:700;color:var(--head)}
+  .page>summary::-webkit-details-marker{display:none}
+  .page>summary::after{content:"";margin-inline-start:auto;width:.5rem;height:.5rem;border-left:2px solid var(--muted);
+                       border-bottom:2px solid var(--muted);transform:rotate(-45deg);transition:transform .2s;flex:none}
+  .page[open]>summary::after{transform:rotate(135deg)}
+  .page>summary .n{display:grid;place-items:center;width:2.3rem;height:2.3rem;border-radius:10px;flex:none;
+                   background:var(--soft);color:var(--head);font-size:.95rem;font-weight:800}
+  .page.is-done>summary .n{background:var(--ok-bg);color:var(--ok);border:1px solid var(--ok-line)}
+  .page.is-now>summary .n{background:var(--grad);color:#fff}
+  .page>summary .t{display:flex;flex-direction:column;min-width:0}
+  .page>summary .t em{font-style:normal;font-size:.8rem;font-weight:500;color:var(--muted)}
+  .tally{font-size:.8rem;font-weight:700;color:var(--muted);background:var(--soft);border-radius:999px;padding:.1rem .6rem;flex:none}
+
+  .rows{border-top:1px solid var(--line)}
+  .bab{padding:.5rem 1rem;font-size:.85rem;font-weight:800;color:var(--c1);background:#F8F9FF;border-bottom:1px solid var(--soft)}
+  .row{display:flex;align-items:center;gap:.8rem;padding:.65rem 1rem;border-bottom:1px solid var(--soft);cursor:pointer}
+  .row:last-child{border-bottom:0}
+  .row.done{background:var(--ok-bg)}
+  .row.today{background:#EEF2FF}
+  .row input[type=checkbox]{appearance:none;-webkit-appearance:none;margin:0;flex:none;width:1.5rem;height:1.5rem;
+      border:2px solid #CBD5E1;border-radius:7px;cursor:pointer;background:#fff;position:relative;transition:.15s}
+  .row input:hover{border-color:var(--c1)}
+  .row input:checked{background:var(--grad);border-color:transparent}
+  .row input:checked::after{content:"";position:absolute;left:.45rem;top:.17rem;width:.32rem;height:.65rem;
+      border:solid #fff;border-width:0 2.5px 2.5px 0;transform:rotate(42deg)}
+  .row .lbl{flex:1;min-width:0}
+  .row .v{display:block;font-family:var(--verse);font-size:1.2rem;color:var(--head);line-height:1.6}
+  .row .m{display:block;font-size:.8rem;color:var(--muted)}
+  .row.done .v{color:var(--ok)}
+  .tag{font-size:.75rem;font-weight:800;border-radius:999px;padding:.15rem .6rem;flex:none;white-space:nowrap}
+  .tag.now{background:var(--grad);color:#fff}
+  .tag.late{background:var(--late-bg);color:var(--late);border:1px solid var(--late-line)}
+  .tag.ok{background:var(--ok-bg);color:var(--ok);border:1px solid var(--ok-line)}
+  .tag.soon{background:var(--soft);color:var(--muted)}
+
+  .save{margin-top:2rem;border:1px dashed var(--line);border-radius:var(--r);padding:1.1rem;background:var(--soft)}
+  .save h2{font-size:1.05rem;font-weight:800;margin-bottom:.4rem}
+  .save p{font-size:.9rem;color:var(--muted);margin-bottom:.8rem}
+  .save textarea{width:100%;min-height:5rem;direction:ltr;text-align:left;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.78rem;
+      border:1px solid var(--line);border-radius:10px;padding:.6rem;resize:vertical;background:#fff;color:var(--text)}
+  .save textarea[readonly]{background:#FAFAFC;color:var(--muted)}
+  .msg{font-size:.88rem;font-weight:700;color:var(--ok);margin-top:.5rem;min-height:1.3rem}
+  footer{padding:1.5rem 0 2.5rem;font-size:.85rem;color:var(--muted);text-align:center}
+
+  @media (min-width:34rem){ .stats{grid-template-columns:repeat(3,1fr)} }
+  @media (min-width:48rem){ .goals{grid-template-columns:1fr 1fr} }
+  @media (prefers-reduced-motion:reduce){ *{transition:none!important} }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="topbar">
+      <a class="brand" href="/apprentissage/lamiya" aria-label="Afaqus">
+        <svg viewBox="0 0 32 32" aria-hidden="true"><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#6366F1"/><stop offset="1" stop-color="#06B6D4"/></linearGradient></defs><rect width="32" height="32" rx="9" fill="url(#lg)"/><circle cx="16" cy="13.5" r="4" fill="none" stroke="#fff" stroke-width="2.4"/><path d="M6 21h20M10 24.5h12" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round"/></svg>
+        <b class="ltr">Afaqus</b>
+      </a>
+      <nav class="nav" aria-label="المتابعات">
+        <a href="/apprentissage">القرآن الكريم</a>
+        <a href="/apprentissage/lamiya" aria-current="page">لامية الأفعال</a>
+      </nav>
+    </div>
+
+    <h1>لامية الأفعال</h1>
+    <p class="sub">لابن مالك رحمه الله · بيت واحد كل يوم · من الصفحة 17 إلى الصفحة 24</p>
+
+    <div class="stats">
+      <div class="stat"><small>المحفوظ</small><b id="s-done">—</b></div>
+      <div class="stat"><small>المتبقي</small><b id="s-left">—</b></div>
+      <div class="stat"><small>الختم حسب الخطة</small><b id="s-end">—</b></div>
+    </div>
+    <div class="bar"><i id="s-bar"></i></div>
+    <p class="pace" id="s-pace"></p>
+
+    <div class="today" id="today">
+      <small id="t-label">ورد اليوم</small>
+      <div class="where" id="t-where">—</div>
+      <div class="verse" id="t-verse"></div>
+      <div class="when" id="t-when"></div>
+      <div class="warn" id="t-warn" hidden></div>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+    <div class="tools">
+      <button class="btn" id="b-today" type="button">اذهب إلى ورد اليوم</button>
+      <button class="btn" id="b-open" type="button">فتح كل الصفحات</button>
+      <button class="btn" id="b-close" type="button">طيّ كل الصفحات</button>
+    </div>
+
+    <h2 class="sec">الأهداف</h2>
+    <div class="goals">
+      <div class="gbox"><h3>الصفحات</h3><div id="g-pages"></div></div>
+      <div class="gbox"><h3>الأبواب والفصول</h3><div id="g-secs"></div></div>
+    </div>
+
+    <h2 class="sec">الأبيات</h2>
+    <div id="list"></div>
+
+    <section class="save">
+      <h2>النسخة الاحتياطية</h2>
+      <p>الأبيات المحفوظة مسجّلة في هذا المتصفح فقط. انسخ هذا النص واحتفظ به (في ملاحظاتك أو في رسالة لنفسك) لتسترجع كل شيء إذا غيّرت الهاتف. لا حاجة للكتابة هنا: النص يتحدّث وحده عند كل علامة.</p>
+      <textarea id="dump" readonly spellcheck="false" aria-label="النسخة الاحتياطية"></textarea>
+      <div class="tools" style="margin:.7rem 0 0">
+        <button class="btn" id="b-copy" type="button">نسخ</button>
+        <button class="btn" id="b-paste" type="button">لصق نسخة احتياطية</button>
+        <button class="btn primary" id="b-restore" type="button" hidden>تأكيد الاسترجاع</button>
+        <button class="btn" id="b-cancel" type="button" hidden>إلغاء</button>
+      </div>
+      <p class="msg" id="msg" role="status"></p>
+    </section>
+  </div>
+</main>
+
+<footer>صفحة خاصة — لا تشارك الرابط</footer>
+
+<script src="/apprentissage/lamiya/app.js" defer></script>
+</body>
+</html>
